@@ -1,68 +1,68 @@
-﻿Material;Dichte kg/m^3;T;Schallgeschw.(m/s);
-Feststoffe;;;;
-Stahl;7800;;5100;
-Blei;11340;;1300;
-Kupfer;8960;20 Grad;5010;
-Aluminium;2700;20 Grad;6420;
-Zinn;7310;20 Grad;2600;
-Messing;8400;20 Grad;3500;
-Granit;2650;;3950;
-Mauerwerk;1900;;3480;
-Gips;2300;20 Grad;2300;
-Stein;2700;;3700;
-Marmor;2800;20 Grad;3000;
-Ziegel;1900;20 Grad;3600;
-Quarz;2650;20 Grad;5968;
-Diamant;3500;20 Grad;17500;
-Glas;2500;;5000;
-Kronglas;2930;;5300;
-Flintglas;4970;;4000;
-Gummi;1100;;54;
-Hartgummi;1200;;1570;
-Kautschuk;1100;20 Grad;50;
-Ebonit;1360;20 Grad;1560;
-Flüssigkeiten;;;;
-Wasser;;0 Grad;1485;
-Wasser;1000;20 Grad;1440;
-Meerwasser;1025;20 Grad;1560;
-Eis;917;-4 Grad;3200;
-Aceton;790;25 Grad;1174;
-Methanol;791;25 Grad;1103;
-Ethanol;789;25 Grad;1207;
-Glycerin;1260;25 Grad;1904;
-Quecksilber;13600;25 Grad;1450;
-Benzol;879;20 Grad;1324;
-Alkohol;789;20 Grad;1200;
-Gase;;;;
-Wasserstoff;;0 Grad;1284;
-Wasserstoff;0.08988;20 Grad;1300;
-Luft;;-140 Grad;227;
-Luft;;-100 Grad;263;
-Luft;;-20 Grad;319;
-Luft;;0 Grad;331;
-Luft;1225;20 Grad;344;
-Luft;;100 Grad;387;
-Helium;0.1785;20 Grad - 1bar;1005;
-Kohlenmonoxid;1250;0 Grad;338;
-Kohlendioxid;1977;0 Grad;257;
-Sauerstoff;1429;0 Grad;314;
-Argon;1784;0 Grad;319;
-Ammoniak;0.771;0 Grad;415;
-Methan;0.668;0 Grad;430;
-Stickstoff;;0 Grad;334;
-Stickstoff;1250;20 Grad;348;
-Helium;0.1785;0 Grad;965;
-Kohlensäure;1977;0 Grad;258;
-Wasserdampf;0.6;110 Grad;413;
-Holz;;;;
-Rotbuche;780;;5100;
-Eiche;710;;4800;
-Edelkastanie;490;;5000;
-Fichte;470;;5900;
-Tanne;530;;5600;
-Kiefer;490;;5300;
-Esche;;;3900;
-Weißtanne;;;5200;
-Rottanne;;;4200;
-Lärche;620;;5200;
-Kork;;;500;
+;Material;Dichte kg/m^3;T;Schallgeschw.(m/s)
+0;Feststoffe;;;
+1;Stahl;7800.0;;5100.0
+2;Blei;11340.0;;1300.0
+3;Kupfer;8960.0;20;5010.0
+4;Aluminium;2700.0;20;6420.0
+5;Zinn;7310.0;20;2600.0
+6;Messing;8400.0;20;3500.0
+7;Granit;2650.0;;3950.0
+8;Mauerwerk;1900.0;;3480.0
+9;Gips;2300.0;20;2300.0
+10;Stein;2700.0;;3700.0
+11;Marmor;2800.0;20;3000.0
+12;Ziegel;1900.0;20;3600.0
+13;Quarz;2650.0;20;5968.0
+14;Diamant;3500.0;20;17500.0
+15;Glas;2500.0;;5000.0
+16;Kronglas;2930.0;;5300.0
+17;Flintglas;4970.0;;4000.0
+18;Gummi;1100.0;;54.0
+19;Hartgummi;1200.0;;1570.0
+20;Kautschuk;1100.0;20;50.0
+21;Ebonit;1360.0;20;1560.0
+22;Flüssigkeiten;;;
+23;Wasser;;0;1485.0
+24;Wasser;1000.0;20;1440.0
+25;Meerwasser;1025.0;20;1560.0
+26;Eis;917.0;-4;3200.0
+27;Aceton;790.0;25;1174.0
+28;Methanol;791.0;25;1103.0
+29;Ethanol;789.0;25;1207.0
+30;Glycerin;1260.0;25;1904.0
+31;Quecksilber;13600.0;25;1450.0
+32;Benzol;879.0;20;1324.0
+33;Alkohol;789.0;20;1200.0
+34;Gase;;;
+35;Wasserstoff;;0;1284.0
+36;Wasserstoff;0.08988;20;1300.0
+37;Luft;;-140;227.0
+38;Luft;;-100;263.0
+39;Luft;;-20;319.0
+40;Luft;;0;331.0
+41;Luft;1225.0;20;344.0
+42;Luft;;100;387.0
+43;Helium;0.1785;20;1005.0
+44;Kohlenmonoxid;1250.0;0;338.0
+45;Kohlendioxid;1977.0;0;257.0
+46;Sauerstoff;1429.0;0;314.0
+47;Argon;1784.0;0;319.0
+48;Ammoniak;0.771;0;415.0
+49;Methan;0.668;0;430.0
+50;Stickstoff;;0;334.0
+51;Stickstoff;1250.0;20;348.0
+52;Helium;0.1785;0;965.0
+53;Kohlensäure;1977.0;0;258.0
+54;Wasserdampf;0.6;110;413.0
+55;Holz;;;
+56;Rotbuche;780.0;;5100.0
+57;Eiche;710.0;;4800.0
+58;Edelkastanie;490.0;;5000.0
+59;Fichte;470.0;;5900.0
+60;Tanne;530.0;;5600.0
+61;Kiefer;490.0;;5300.0
+62;Esche;;;3900.0
+63;Weißtanne;;;5200.0
+64;Rottanne;;;4200.0
+65;Lärche;620.0;;5200.0
+66;Kork;;;500.0
