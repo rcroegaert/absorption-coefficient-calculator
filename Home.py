@@ -16,8 +16,18 @@ f_end = col2.selectbox('Select end frequency [Hz]:', [100, 1000, 10000])
 d = st.number_input('Select material thickness [mm]:', step=1)
 
 # Call the function with the selected variables and display the plot
-fig = utils.absorption_coefficient(f_start, f_end, d).plot()
-st.pyplot(fig)
+fig, df = utils.absorption_coefficient(f_start, f_end, d).plot()
+st.plotly_chart(fig)
+
+st.subheader("Data")
+st.dataframe(df)
+
+st.header("Download")
+utils.create_df_export_button(
+    df=df,
+    title=f"Absorption Coefficient of a {d} mm material",
+    ts=None,
+)
 
 
 # Run the app with:
