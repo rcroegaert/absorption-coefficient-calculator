@@ -17,8 +17,8 @@ d = st.number_input('Select material thickness [mm]:', step=1)
 
 # Call the function with the selected variables and display the plot
 fig = utils.absorption_coefficient(f_start, f_end, d).plot()
-st.pyplot(fig)
-
+#st.pyplot(fig)
+st.plotly_chart(fig) # st.pyplot led to an Attribute Error for savefig
 
 # Run the app with:
 # streamlit run Home.py --server.enableCORS=false
