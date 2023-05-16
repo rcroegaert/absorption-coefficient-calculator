@@ -1,14 +1,12 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import plotly.express as px
 import plotly.graph_objects as go
 import pendulum
 import streamlit as st
 
-# Define a class that works with three variavles and returns a plotly plot
+# Define a class that works with three variables and returns a dataframe and a plot
 class absorption_coefficient:
-    """This class takes three variables as input and returns a matplotlib plot
+    """This class takes three variables as input and returns a plotly plot and a dataframe.
     """
 
     def __init__(
@@ -22,18 +20,23 @@ class absorption_coefficient:
 
     def plot(self):
         fig = go.Figure()
-        x = np.linspace(self.f_start, self.f_end, 10)
+        x = np.linspace(self.f_start, self.f_end, 100)
         alpha = 0.9 * np.log10(x*self.d) - 2.4
         alpha[alpha > 1] = 1
         alpha[alpha < 0] = 0
+        global df
         df = pd.DataFrame({'Frequency': x, 'Absorption Coefficient': alpha})
         fig.add_trace(go.Scatter(x=x, y=alpha, mode='lines'))
         fig.update_layout(yaxis_range=[0, 1.1])
         fig.update_layout(title='Absorption coefficient of a {} mm material'.format(self.d),
                           xaxis_title='Frequency in [Hz]',
                           yaxis_title='Absorption Coefficient')
-        return fig, df
+        return fig
+    
+    def data(self):
+        return df
 
+# Define a function that creates a download button for a dataframe
 @st.cache_data(show_spinner=False)
 def _convert_df(df: pd.DataFrame):
     return df.to_csv().encode("utf-8")
