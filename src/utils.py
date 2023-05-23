@@ -1,28 +1,12 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import plotly.express as px
+import pandas as pd
 import plotly.graph_objects as go
+import pendulum
+import streamlit as st
 
-
-# Define a function that takes two variables as input and returns a matplotlib plot
-def absorption_coefficient_plot(f_start:int, f_end:int, d:int):
-    """This function takes three variables as input and returns a matplotlib plot
-    """
-
-    fig, ax = plt.subplots()
-    x = np.linspace(f_start, f_end, 10)
-    alpha = 0.9 * np.log10(x*d) - 2.4
-    alpha[alpha > 1] = 1
-    alpha[alpha < 0] = 0
-    ax.plot(x, alpha)
-    ax.set_xlabel('Frequency in [Hz]')
-    ax.set_ylabel('Absorption Coefficient')
-    ax.set_title('Absorption coefficient of a {} mm material'.format(d))
-    return fig
-
-# Define a class from the function above
+# Define a class that works with three variables and returns a dataframe and a plot
 class absorption_coefficient:
-    """This class takes three variables as input and returns a matplotlib plot
+    """This class takes three variables as input and returns a plotly plot and a dataframe.
     """
 
     def __init__(
@@ -36,13 +20,76 @@ class absorption_coefficient:
 
     def plot(self):
         fig = go.Figure()
-        x = np.linspace(self.f_start, self.f_end, 10)
+        x = np.arange(self.f_start, self.f_end + 10, 10)
         alpha = 0.9 * np.log10(x*self.d) - 2.4
         alpha[alpha > 1] = 1
         alpha[alpha < 0] = 0
+        global df
+        df = pd.DataFrame({'Frequency': x, 'Absorption Coefficient': alpha})
         fig.add_trace(go.Scatter(x=x, y=alpha, mode='lines'))
         fig.update_layout(yaxis_range=[0, 1.1])
+        fig.update_xaxes(showgrid=True)
         fig.update_layout(title='Absorption coefficient of a {} mm material'.format(self.d),
                           xaxis_title='Frequency in [Hz]',
                           yaxis_title='Absorption Coefficient')
         return fig
+    
+    def data(self):
+        return df
+
+# Define a function that creates a download button for a dataframe
+@st.cache_data(show_spinner=False)
+def _convert_df(df: pd.DataFrame):
+    return df.to_csv().encode("utf-8")
+
+
+def create_df_export_button(
+    df: pd.DataFrame,
+    title: str,
+    ts: pendulum.DateTime | None,
+) -> bool:
+    """Creates a Streamlit button to export a dataframe to a CSV file.
+
+    Args:
+        df (pd.DataFrame): Dataframe to export.
+        title (str): Title of the data.
+        ts (pendulum.DateTime): Optional datetime that will be used for file name.
+
+    Returns:
+        bool: Streamlit button functioning a boolean type.
+    """
+
+    if ts is None:
+        ts = pendulum.now()
+
+    ts_formatted = ts.to_datetime_string().translate(
+        str.maketrans(
+            {
+                "/": "-",
+                ":": "-",
+            }
+        )
+    )
+
+    file_name = f"{title}_{ts_formatted}.csv".replace(" ", "_").lower()
+
+    return st.download_button(
+        label="Export",
+        data=_convert_df(df=df),
+        file_name=file_name,
+        mime="text/csv",
+    )
+
+def create_input_field():
+    """Creates a Streamlit input field to enter a number.
+
+    Returns:
+        int: Streamlit input field returning an integer.
+    """
+    return st.number_input(
+        label="Select material Nr. 2 thickness [mm]:",
+        min_value=0,
+        max_value=100,
+        value=50,
+        step=1,
+    )
