@@ -37,12 +37,13 @@ class absorption_coefficient:
     def data(self):
         return df
 
-# Define a function that creates a download button for a dataframe
+
+# Define a function that converts a dataframe to a CSV file
 @st.cache_data(show_spinner=False)
 def _convert_df(df: pd.DataFrame):
     return df.to_csv().encode("utf-8")
 
-
+# Define a function that creates a download button for a dataframe
 def create_df_export_button(
     df: pd.DataFrame,
     title: str,
@@ -80,6 +81,7 @@ def create_df_export_button(
         mime="text/csv",
     )
 
+# Define a function that creates an input field for a number
 def create_input_field():
     """Creates a Streamlit input field to enter a number.
 
@@ -93,3 +95,41 @@ def create_input_field():
         value=50,
         step=1,
     )
+
+# JAC Modell
+def JAC(f: float,
+        dichte: float,
+        phi: float, 
+        alpha_unend: float,
+        sigma: float,
+        gamma: float,
+        P0: float,
+        viskosität_L: float,
+        thermisch_L: float,
+        Pr: float,
+        viskosität: float
+        ) -> float:
+
+    K0 = gamma * P0
+    omega = 2*pi*f
+    G1 = sigma * phi / (alpha_unend * dichte * omega)
+
+    G2 = 4*((alpha_unend)**2) * dichte * viskosität * omega / ((sigma*phi*viskosität_L)**2)
+
+    G1_dot = 8*viskosität / (dichte * Pr * ((thermisch_L)**2) * omega)
+
+    G2_dot = dichte * Pr * ((thermisch_L)**2) * omega / (16*viskosität)
+
+    dichte_p = dichte * alpha_unend * (1- 1j*G1*sqrt(1+1j*G2)) / phi
+
+    K_p = K0*phi**(-1) / (gamma - (gamma-1)*((1- 1j*G1_dot*sqrt(1+ 1j*G2_dot))**-1))
+
+    kp = omega * sqrt(dichte_p/K_p)
+    Zp = sqrt(dichte_p*K_p)
+
+    return Zp, kp
+
+
+def add_number_input(number_dict, next_key):
+    new_value = st.number_input(f"Value {next_key}")
+    number_dict[next_key] = new_value
