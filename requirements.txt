@@ -1,6 +1,7 @@
 matplotlib
 numpy
 pandas
+pendulum
 plotly
 streamlit
 tabulate
