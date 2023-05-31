@@ -111,7 +111,7 @@ def JAC(f: float,
         ) -> float:
 
     K0 = gamma * P0
-    omega = 2*pi*f
+    omega = 2*np.pi*f
     G1 = sigma * phi / (alpha_unend * dichte * omega)
 
     G2 = 4*((alpha_unend)**2) * dichte * viskosität * omega / ((sigma*phi*viskosität_L)**2)
@@ -120,16 +120,11 @@ def JAC(f: float,
 
     G2_dot = dichte * Pr * ((thermisch_L)**2) * omega / (16*viskosität)
 
-    dichte_p = dichte * alpha_unend * (1- 1j*G1*sqrt(1+1j*G2)) / phi
+    dichte_p = dichte * alpha_unend * (1- 1j*G1*np.sqrt(1+1j*G2)) / phi
 
-    K_p = K0*phi**(-1) / (gamma - (gamma-1)*((1- 1j*G1_dot*sqrt(1+ 1j*G2_dot))**-1))
+    K_p = K0*phi**(-1) / (gamma - (gamma-1)*((1- 1j*G1_dot*np.sqrt(1+ 1j*G2_dot))**-1))
 
-    kp = omega * sqrt(dichte_p/K_p)
-    Zp = sqrt(dichte_p*K_p)
+    kp = omega * np.sqrt(dichte_p/K_p)
+    Zp = np.sqrt(dichte_p*K_p)
 
     return Zp, kp
-
-
-def add_number_input(number_dict, next_key):
-    new_value = st.number_input(f"Value {next_key}")
-    number_dict[next_key] = new_value
