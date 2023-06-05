@@ -96,35 +96,42 @@ def create_input_field():
         step=1,
     )
 
-# JAC Modell
-def JAC(f: float,
-        dichte: float,
-        phi: float, 
-        alpha_unend: float,
-        sigma: float,
-        gamma: float,
-        P0: float,
-        viskosität_L: float,
-        thermisch_L: float,
-        Pr: float,
-        viskosität: float
-        ) -> float:
+# Define the transfer matrix method function
+def tmm(
+        k1: float,
+        L1: float,
+        Z1: float,
+        k2: float,
+        L2: float,
+        Z2: float
+    ) -> None:
+    
+    # T1, T2, T3 definieren
+    T1 = np.array([[np.cos(k1*L1), 1j*Z1*np.sin(k1*L1)],
+                   [(1j/Z1)*np.sin(k1*L1), np.cos(k1*L1)]])
 
-    K0 = gamma * P0
-    omega = 2*np.pi*f
-    G1 = sigma * phi / (alpha_unend * dichte * omega)
+    T2 = np.array([[np.cos(k2*L2), 1j*Z2*np.sin(k2*L2)],
+                   [(1j/Z2)*np.sin(k2*L2), np.cos(k2*L2)]])
 
-    G2 = 4*((alpha_unend)**2) * dichte * viskosität * omega / ((sigma*phi*viskosität_L)**2)
+    # Rigid Backed -> das wird erstmal nicht benutzt?
+    T3 = np.array([[1, 0],  
+                   [0, 1]])
 
-    G1_dot = 8*viskosität / (dichte * Pr * ((thermisch_L)**2) * omega)
+    # T_total berechnen
+    T_total = np.dot(T1, T2)
 
-    G2_dot = dichte * Pr * ((thermisch_L)**2) * omega / (16*viskosität)
+    return T_total
 
-    dichte_p = dichte * alpha_unend * (1- 1j*G1*np.sqrt(1+1j*G2)) / phi
+def plotly_go_line(x,y,x_label,y_label,title):
+    """Creates a plotly-go line plot.
 
-    K_p = K0*phi**(-1) / (gamma - (gamma-1)*((1- 1j*G1_dot*np.sqrt(1+ 1j*G2_dot))**-1))
-
-    kp = omega * np.sqrt(dichte_p/K_p)
-    Zp = np.sqrt(dichte_p*K_p)
-
-    return Zp, kp
+    Returns:
+        plotly.graph_objects.Figure: Plotly line plot.
+    """
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=x, y=y, mode='lines'))
+    fig.update_xaxes(showgrid=True)
+    fig.update_layout(title=title,
+                    xaxis_title=x_label,
+                    yaxis_title=y_label)
+    return fig

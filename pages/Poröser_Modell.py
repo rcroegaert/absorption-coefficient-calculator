@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import plotly.graph_objects as go
 
-from src import utils
+from src import utils, models
 
 st.set_page_config(
     page_title="Poröser Modell",
@@ -21,8 +21,8 @@ st.title('Absorptionsgrad Rechner')
 
 # Input Section
 st.markdown('----')
-# Dropdown for absorber model
-model = st.selectbox('Absorbermodell wählen:', ['Poröser', 'Nicht definiert'])
+# Dropdown for absorber model -> erstmal das auskommentieren
+# model = st.selectbox('Absorbermodell wählen:', ['Poröser', 'Nicht definiert'])
 
 # Define the dropdown menus for the frequency
 col1, col2 = st.columns(2)
@@ -31,9 +31,10 @@ f_end = col2.selectbox('Endfrequenz wählen [Hz]:', [100, 1000, 10000])
 f_range = np.arange(f_start, f_end, 1)
 st.markdown('----')
 
-
+# Materialen Eingabe
 col1, col2 = st.columns(2)
 col1.header("Materialen")
+
 
 num_materials = col1.selectbox("Wähl die Anzahl an Materialen:", range(1, 6), 1)
 
@@ -59,7 +60,6 @@ luft_c = 344
 st.write('luft_c =', luft_c)
 luft_dichte = 1.213
 st.write('luft_dichte =', luft_dichte)
-
 dichte = 1.213
 st.write('Dichte =', dichte)
 phi = 0.98
@@ -92,38 +92,23 @@ L2 = material_dict["Material 2"] / 1000
 alphas = np.array([])
 
 for f in f_range:
-    Z1, k1 = utils.JAC(f, dichte, phi, alpha_unend, sigma, gamma, P0, viskosität_L, thermisch_L, Pr, viskosität)
+    # Berechnung der Impedanz und Wellenzahl mit Poröser Modell
+    Z1, k1 = models.JAC(f, dichte, phi, alpha_unend, sigma, gamma, P0, viskosität_L, thermisch_L, Pr, viskosität)
     k2 = 2 * np.pi * f / luft_c
 
-    # T1, T2, T3 definieren
-    T1 = np.array([[np.cos(k1*L1), 1j*Z1*np.sin(k1*L1)],
-                   [(1j/Z1)*np.sin(k1*L1), np.cos(k1*L1)]])
+    # Berechnung der TMM-Matrix
+    T_total = utils.tmm(k1,L1,Z1,k2,L2,Z2)
 
-    T2 = np.array([[np.cos(k2*L2), 1j*Z2*np.sin(k2*L2)],
-                   [(1j/Z2)*np.sin(k2*L2), np.cos(k2*L2)]])
-
-    # Rigid Backed
-    T3 = np.array([[1, 0],  
-                   [0, 1]])
-
-    # T_total berechnen
-    T_total = np.dot(T1, T2)
-
-    # Absorptionsgrad berechnen
+    # Absorptionsgrad berechnen -> gehört das in tmm-fkt?
     R = (T_total[0, 0] - T_total[1, 0]*Z0) / (T_total[0, 0] + T_total[1, 0]*Z0) # Reflexionskoeffizient
     alpha = 1 - np.abs(R) ** 2
     alphas = np.append(alphas, alpha)
 
-# Ersetzen der Werte durch 0
-alphas[(alphas > -0.000001) & (alphas < 0)] = 0
-alphas[(alphas < 0.000001) & (alphas > 0)] = 0
-
+# Plotting
 titlestr = ('Absorptionsgrad eines {} mm Material'.format(material_dict["Material 1"]) + ' bei {} mm Luftspalt'.format(material_dict["Material 2"]))
-fig = go.Figure()
-fig.add_trace(go.Scatter(x=f_range, y=alphas, mode='lines'))
-fig.update_layout(yaxis_range=[0, 1.1])
-fig.update_xaxes(showgrid=True)
-fig.update_layout(title=titlestr,
-                    xaxis_title='Frequenz in [Hz]',
-                    yaxis_title='Absorptionsgrad')
-fig
+fig1 = utils.plotly_go_line(x=f_range, 
+                     y=alphas, 
+                     x_label='Frequenz in [Hz]', 
+                     y_label='Absorptionsgrad',
+                     title=titlestr)
+fig1
