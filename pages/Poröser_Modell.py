@@ -25,34 +25,45 @@ st.markdown('----')
 # model = st.selectbox('Absorbermodell wählen:', ['Poröser', 'Nicht definiert'])
 
 # Define the dropdown menus for the frequency
+st.header('Globale Parameter')
+
+st.markdown('##### Frequenzbereich')
 col1, col2 = st.columns(2)
-f_start = col1.selectbox('Anfangsfrequenz wählen [Hz]:', [0, 1, 10, 100])
-f_end = col2.selectbox('Endfrequenz wählen [Hz]:', [100, 1000, 10000])
+f_start, f_end = col1.slider('Anfangs- und Endfrequenz [Hz]', 0, 10000, (0, 1000), step=100)
 f_range = np.arange(f_start, f_end, 1)
+
+st.markdown('')
+
 st.markdown('----')
 
 # Materialen Eingabe
-col1, col2 = st.columns(2)
-col1.header("Materialen")
+st.header('Material Parameter')
+col1, col2, col3 = st.columns(3)
+# num_materials = col1.selectbox("Wähl die Anzahl an Materialen:", range(1, 6))
+num_materials = col1.number_input("Wähl die Anzahl an Materialen:", min_value=1, max_value=5, value=1, step=1)
+material_dict = {}
 
 
-num_materials = col1.selectbox("Wähl die Anzahl an Materialen:", range(1, 6), 1)
+# Create the specified number of columns for each material
+columns = st.columns(num_materials)
+# Display variables in each column and save them
+for i, column in enumerate(columns):
+    key = f"Material {i + 1}"
+    value1 = column.number_input(f"Dicke {i+1}", key=f"value1_{i}")
+    value2 = column.selectbox(f"Modell {i+1}", options=['Bitte wählen Sie', 'Poröser', 'Lochplatte'], key=f"value2_{i}")
+    value3 = column.number_input(f"Strömungswiderstand {i+1}", format='%e', key=f"value3_{i}")
+    value4 = column.number_input(f"alpha_unendlich {i+1}", key=f"value4_{i}")
+    value5 = column.number_input(f"Viskosität {i+1}", key=f"value5_{i}")
+    value6 = column.number_input(f"Thermische {i+1}", key=f"value6_{i}")
+    material_dict[key] = [value1, value2, value3, value4, value5, value6]
 
-col2.header("Materialdicke eingeben")
-with col2.container():
-    material_dict = {}
-    for i in range(num_materials):
-        key = f"Material {i+1}"
-        value = st.number_input(f"{key} Dicke")
-        material_dict[key] = value
+if st.button("OK"):
+    st.write("Eingabe gespeichert!")
+    st.write("Material Thickness:")
+    for key, value in material_dict.items():
+        st.write(f"{key}: {value}")
 
-    if st.button("OK"):
-        st.write("Eingabe gespeichert!")
-        # st.write("Material Thickness:")
-        # for key, value in material_dict.items():
-        #     st.write(f"{key}: {value}")
 
-col2.write(material_dict)
 
 
 st.header("Wichtige Parameter")
@@ -86,8 +97,8 @@ Z2 = impedanz
 Z0 = impedanz
 st.write('Impedanz =', impedanz)
 
-L1 = material_dict["Material 1"] / 1000
-L2 = material_dict["Material 2"] / 1000
+L1 = material_dict["Material 1"][0] / 1000
+L2 = material_dict["Material 2"][0] / 1000
 
 alphas = np.array([])
 
@@ -106,9 +117,9 @@ for f in f_range:
 
 # Plotting
 titlestr = ('Absorptionsgrad eines {} mm Material'.format(material_dict["Material 1"]) + ' bei {} mm Luftspalt'.format(material_dict["Material 2"]))
-fig1 = utils.plotly_go_line(x=f_range, 
-                     y=alphas, 
-                     x_label='Frequenz in [Hz]', 
+fig1 = utils.plotly_go_line(x=f_range,
+                     y=alphas,
+                     x_label='Frequenz in [Hz]',
                      y_label='Absorptionsgrad',
                      title=titlestr)
 fig1
