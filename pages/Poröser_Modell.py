@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 import plotly.graph_objects as go
 
 from src import utils, models
@@ -25,80 +26,93 @@ st.markdown('----')
 # model = st.selectbox('Absorbermodell wählen:', ['Poröser', 'Nicht definiert'])
 
 # Define the dropdown menus for the frequency
-st.header('Globale Parameter')
+st.header('Globale Parameter :globe_with_meridians:')
+with st.expander('Werte ein/ausblenden...'):
+    st.markdown('##### Frequenzbereich')
+    col1, col2 = st.columns(2)
+    f_start, f_end = col1.slider('Anfangs- und Endfrequenz [Hz]', 0, 10000, (0, 10000), step=100)
+    f_range = np.arange(f_start, f_end, 1)
 
-st.markdown('##### Frequenzbereich')
-col1, col2 = st.columns(2)
-f_start, f_end = col1.slider('Anfangs- und Endfrequenz [Hz]', 0, 10000, (0, 1000), step=100)
-f_range = np.arange(f_start, f_end, 1)
-
-st.markdown('')
+    col1, col2, col3 = st.columns(3)
+    col1.markdown('##### Lufttemperatur')
+    luft_temp = col1.number_input('in [°C]', step=1, value=20)
+    col2.markdown('##### Luftdruck')
+    luft_druck = col2.number_input('in [Pa]', step=1, value=101325)
+    col3.markdown('##### Einfallswinkel')
+    winkel = col3.number_input('in [°]', step=1, value=0)
 
 st.markdown('----')
 
 # Materialen Eingabe
-st.header('Material Parameter')
-col1, col2, col3 = st.columns(3)
-# num_materials = col1.selectbox("Wähl die Anzahl an Materialen:", range(1, 6))
-num_materials = col1.number_input("Wähl die Anzahl an Materialen:", min_value=1, max_value=5, value=1, step=1)
-material_dict = {}
+st.header('Material Parameter :hammer:')
+with st.expander('Werte ein/ausblenden...'):
+    col1, col2, col3 = st.columns(3)
+    # num_materials = col1.selectbox("Wähl die Anzahl an Materialen:", range(1, 6))
+    num_materials = col1.number_input("Wähl die Anzahl an Materialen:", min_value=1, max_value=5, value=1, step=1)
+    material_dict = {}
 
 
-# Create the specified number of columns for each material
-columns = st.columns(num_materials)
-# Display variables in each column and save them
-for i, column in enumerate(columns):
-    key = f"Material {i + 1}"
-    value1 = column.number_input(f"Dicke {i+1}", key=f"value1_{i}")
-    value2 = column.selectbox(f"Modell {i+1}", options=['Bitte wählen Sie', 'Poröser', 'Lochplatte'], key=f"value2_{i}")
-    value3 = column.number_input(f"Strömungswiderstand {i+1}", format='%e', key=f"value3_{i}")
-    value4 = column.number_input(f"alpha_unendlich {i+1}", key=f"value4_{i}")
-    value5 = column.number_input(f"Viskosität {i+1}", key=f"value5_{i}")
-    value6 = column.number_input(f"Thermische {i+1}", key=f"value6_{i}")
-    material_dict[key] = [value1, value2, value3, value4, value5, value6]
+    # Create the specified number of columns for each material
+    columns = st.columns(num_materials)
+    # Display variables in each column and save them
+    for i, column in enumerate(columns):
+        column.markdown(f"##### Material # {i+1}")
+        key = f"Material {i + 1}"
+        value1 = column.number_input(f"Dicke [mm]", key=f"value1_{i}", format='%0f')
+        value2 = column.selectbox(f"Modell", options=['Bitte wählen Sie', 'Poröser', 'Lochplatte'], key=f"value2_{i}")
+        value3 = column.selectbox(f"Luftschicht?", options=['Bitte wählen Sie', 'Ja', 'Nein'], key=f"value3_{i}")
+        if value3 == 'Ja':
+            value4 = column.number_input(f"Dicke der Luftschicht [mm]", key=f"value4_{i}", format='%0f')
+        else:
+            value4 = 0
+        value5 = column.number_input(f"Strömungswiderstand [Ns/m^4]", key=f"value5_{i}", format='%e')
+        # value4 = column.number_input(f"alpha_unendlich {i+1}", key=f"value_{i}", format='%0f')
+        value6 = column.number_input(f"Viskosität", key=f"value6_{i}", format='%0f')
+        value7 = column.number_input(f"Thermische", key=f"value7_{i}", format='%0f', value=value6*2)
+        material_dict[key] = [value1, value2, value4, value5, value6, value7]
 
-if st.button("OK"):
-    st.write("Eingabe gespeichert!")
-    st.write("Material Thickness:")
-    for key, value in material_dict.items():
-        st.write(f"{key}: {value}")
+    if st.button("OK"):
+        st.write("Eingabe gespeichert!")
+        st.write('  ' * 10000)
+        st.write("Material parameter überprüfen:")
+        for key, value in material_dict.items():
+            st.write(f"{key}: {value}")
+
+st.markdown('----')
 
 
-
-
-st.header("Wichtige Parameter")
 luft_c = 344
-st.write('luft_c =', luft_c)
+# st.write('luft_c =', luft_c)
 luft_dichte = 1.213
-st.write('luft_dichte =', luft_dichte)
+# st.write('luft_dichte =', luft_dichte)
 dichte = 1.213
-st.write('Dichte =', dichte)
+# st.write('Dichte =', dichte)
 phi = 0.98
-st.write('phi =', phi)
+# st.write('phi =', phi)
 alpha_unend = 1.01
-st.write('alpha_unend =', alpha_unend)
+# st.write('alpha_unend =', alpha_unend)
 sigma = 20600
-st.write('sigma =', sigma)
+# st.write('sigma =', sigma)
 gamma = 1.4
-st.write('gamma =', gamma)
+# st.write('gamma =', gamma)
 P0 = 101325 # Pa
-st.write('P0 =', P0)
+# st.write('P0 =', P0)
 viskosität_L = 85*10**(-6)
-st.write('viskosität_L =', viskosität_L)
+# st.write('viskosität_L =', viskosität_L)
 thermisch_L = viskosität_L*2
-st.write('thermisch_L =', thermisch_L)
+# st.write('thermisch_L =', thermisch_L)
 Pr = 0.71
-st.write('Pr =', Pr)
+# st.write('Pr =', Pr)
 viskosität = 1.839*10**(-5)
-st.write('viskosität =', viskosität)
+# st.write('viskosität =', viskosität)
 
 impedanz = luft_dichte * luft_c
 Z2 = impedanz
 Z0 = impedanz
-st.write('Impedanz =', impedanz)
+# st.write('Impedanz =', impedanz)
 
 L1 = material_dict["Material 1"][0] / 1000
-L2 = material_dict["Material 2"][0] / 1000
+L2 = material_dict["Material 1"][4] / 1000
 
 alphas = np.array([])
 
@@ -116,10 +130,25 @@ for f in f_range:
     alphas = np.append(alphas, alpha)
 
 # Plotting
-titlestr = ('Absorptionsgrad eines {} mm Material'.format(material_dict["Material 1"]) + ' bei {} mm Luftspalt'.format(material_dict["Material 2"]))
+st.header('Plot :bar_chart:')
+titlestr = ('Absorptionsgrad eines {} mm Material'.format(material_dict["Material 1"][0]) + ' bei {} mm Luftspalt'.format(material_dict["Material 1"][2]))
 fig1 = utils.plotly_go_line(x=f_range,
                      y=alphas,
                      x_label='Frequenz in [Hz]',
                      y_label='Absorptionsgrad',
                      title=titlestr)
 fig1
+
+
+# DF anzeigen
+col1,col2 = st.columns(2)
+col1.subheader('Daten :books:')
+df = pd.DataFrame({'Frequenz': f_range, 'Absorptionsgrad': alphas})
+st.dataframe(df, height=210)
+col2.subheader('Herunterladen :arrow_heading_down:')
+with col2:
+    export = utils.create_df_export_button(
+        df=df,
+        title=f"Absorptionsgrad Berechnung",
+        ts=None,
+    )
