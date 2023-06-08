@@ -133,5 +133,7 @@ def plotly_go_line(x,y,x_label,y_label,title):
     fig.update_xaxes(showgrid=True)
     fig.update_layout(title=title,
                     xaxis_title=x_label,
-                    yaxis_title=y_label)
+                    yaxis_title=y_label,
+                    width=1000,
+                    height=500)
     return fig
