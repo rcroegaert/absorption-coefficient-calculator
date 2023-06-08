@@ -1,6 +1,79 @@
 import numpy as np
 
-# Poröser Modell
+class AbsorberModelInterface:
+    # an interface upon which each absorber model will be implemented
+
+    f = dichte = phi = alpha_unend = sigma = gamma = P0 =  viskosität_L = \
+         thermisch_L = Pr = viskosität = 0.0
+    
+    def __init__(self, f, dichte, phi, alpha_unend, sigma, gamma, P0,  viskosität_L, \
+         thermisch_L, Pr, viskosität):
+        self.f = f
+        self.dichte = dichte
+        self.phi = phi
+        self.alpha_unend = alpha_unend
+        self.sigma = sigma
+        self.gamma = gamma
+        self.P0 = P0
+        self.viskosität_L = viskosität_L
+        self.thermisch_L = thermisch_L
+        self.Pr = Pr
+        self.viskosität = viskosität
+
+    def get_kp(self):
+        pass
+
+    def get_Zp(self):
+        pass
+
+    def set_f(self, new_f):
+        self.f = new_f
+
+# Poröser Absorber
+# Acoustic Waves p.128
+# JAC-Modell
+# Porosität des porösen Materials (Φ)
+# Dichte der Flüssigkeit (normalerweise Luft) (ρ)
+# Viskosität des Fluids (η)
+# Strömungswiderstand des porösen Materials (σ)
+# Frequenz der Schallwelle (f)
+# Thermische Parameter eines porösen Materials (Pr, Le)
+# Wärmekapazität des porösen Materials (Cp)
+# Porengröße des porösen Materials (d)
+class Porous_Absorber(AbsorberModelInterface):
+
+    def __init__(self, f, dichte, phi, alpha_unend, sigma, gamma, P0,  viskosität_L,
+                 thermisch_L, Pr, viskosität):
+        super().__init__(f, dichte, phi, alpha_unend, sigma, gamma, P0, viskosität_L,
+                         thermisch_L, Pr, viskosität)
+        
+        self.K0 = self.gamma * self.P0
+        self.calculate_aux_values()
+    
+    def calculate_aux_values(self):
+        self.omega = 2 * np.pi * self.f
+        self.G1 = self.sigma * self.phi / (self.alpha_unend * self.dichte * self.omega)
+        self.G2 = 4*((self.alpha_unend)**2) * self.dichte * self.viskosität * self.omega / ((self.sigma*self.phi*self.viskosität_L)**2)
+
+        self.G1_dot = 8*self.viskosität / (self.dichte * self.Pr * ((self.thermisch_L)**2) * self.omega)
+
+        self.G2_dot = self.dichte * self.Pr * ((self.thermisch_L)**2) * self.omega / (16*self.viskosität)
+
+        self.dichte_p = self.dichte * self.alpha_unend * (1- 1j*self.G1*np.sqrt(1+1j*self.G2)) / self.phi
+
+        self.K_p = self.K0*self.phi**(-1) / (self.gamma - (self.gamma-1)*((1- 1j*self.G1_dot*np.sqrt(1+ 1j*self.G2_dot))**-1))
+
+    def get_kp(self):
+        return self.omega * np.sqrt(self.dichte_p/self.K_p)
+    
+    def get_Zp(self):
+        return np.sqrt(self.dichte_p*self.K_p)
+    
+    def set_f(self, new_f):
+        super().set_f(new_f)
+        self.calculate_aux_values()
+
+
 def JAC(f: float,
         dichte: float,
         phi: float, 
@@ -32,3 +105,5 @@ def JAC(f: float,
     Zp = np.sqrt(dichte_p*K_p)
 
     return Zp, kp
+
+
