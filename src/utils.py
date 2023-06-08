@@ -39,7 +39,7 @@ class absorption_coefficient:
 
 
 # Define a function that converts a dataframe to a CSV file
-# @st.cache_data(show_spinner=False)
+@st.cache(show_spinner=False)
 def _convert_df(df: pd.DataFrame):
     return df.to_csv().encode("utf-8")
 

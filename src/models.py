@@ -20,6 +20,9 @@ class AbsorberModelInterface:
         self.Pr = Pr
         self.viskosität = viskosität
 
+    def calculate_aux_values(self):
+        pass
+    
     def get_kp(self):
         pass
 
