@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 from src import utils, models
 
 st.set_page_config(
-    page_title="Poröser Modell",
+    page_title="Poröser Absorber",
     layout="wide"
 )
 # --- Initialising SessionState ---
