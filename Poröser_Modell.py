@@ -118,7 +118,10 @@ alphas = np.array([])
 
 for f in f_range:
     # Berechnung der Impedanz und Wellenzahl mit Poröser Modell
-    Z1, k1 = models.JAC(f, dichte, phi, alpha_unend, sigma, gamma, P0, viskosität_L, thermisch_L, Pr, viskosität)
+    try:
+        Z1, k1 = models.JAC(f, dichte, phi, alpha_unend, sigma, gamma, P0, viskosität_L, thermisch_L, Pr, viskosität)
+    except (ZeroDivisionError, ValueError):
+        print('biite richtig Zahl eingeben')
     k2 = 2 * np.pi * f / luft_c
 
     # Berechnung der TMM-Matrix
