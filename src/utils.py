@@ -37,12 +37,13 @@ class absorption_coefficient:
     def data(self):
         return df
 
-# Define a function that creates a download button for a dataframe
-@st.cache_data(show_spinner=False)
+
+# Define a function that converts a dataframe to a CSV file
+@st.cache(show_spinner=False)
 def _convert_df(df: pd.DataFrame):
     return df.to_csv().encode("utf-8")
 
-
+# Define a function that creates a download button for a dataframe
 def create_df_export_button(
     df: pd.DataFrame,
     title: str,
@@ -80,6 +81,7 @@ def create_df_export_button(
         mime="text/csv",
     )
 
+# Define a function that creates an input field for a number
 def create_input_field():
     """Creates a Streamlit input field to enter a number.
 
@@ -93,3 +95,45 @@ def create_input_field():
         value=50,
         step=1,
     )
+
+# Define the transfer matrix method function
+def tmm(
+        k1: float,
+        L1: float,
+        Z1: float,
+        k2: float,
+        L2: float,
+        Z2: float
+    ) -> None:
+    
+    # T1, T2, T3 definieren
+    T1 = np.array([[np.cos(k1*L1), 1j*Z1*np.sin(k1*L1)],
+                   [(1j/Z1)*np.sin(k1*L1), np.cos(k1*L1)]])
+
+    T2 = np.array([[np.cos(k2*L2), 1j*Z2*np.sin(k2*L2)],
+                   [(1j/Z2)*np.sin(k2*L2), np.cos(k2*L2)]])
+
+    # Rigid Backed -> das wird erstmal nicht benutzt?
+    T3 = np.array([[1, 0],  
+                   [0, 1]])
+
+    # T_total berechnen
+    T_total = np.dot(T1, T2)
+
+    return T_total
+
+def plotly_go_line(x,y,x_label,y_label,title):
+    """Creates a plotly-go line plot.
+
+    Returns:
+        plotly.graph_objects.Figure: Plotly line plot.
+    """
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=x, y=y, mode='lines'))
+    fig.update_xaxes(showgrid=True)
+    fig.update_layout(title=title,
+                    xaxis_title=x_label,
+                    yaxis_title=y_label,
+                    width=1000,
+                    height=500)
+    return fig
