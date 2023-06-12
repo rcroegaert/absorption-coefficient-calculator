@@ -4,42 +4,8 @@ import plotly.graph_objects as go
 import pendulum
 import streamlit as st
 
-# Define a class that works with three variables and returns a dataframe and a plot
-class absorption_coefficient:
-    """This class takes three variables as input and returns a plotly plot and a dataframe.
-    """
-
-    def __init__(
-            self,
-            f_start:int, 
-            f_end:int, 
-            d:int):
-        self.f_start = f_start
-        self.f_end = f_end
-        self.d = d
-
-    def plot(self):
-        fig = go.Figure()
-        x = np.arange(self.f_start, self.f_end + 10, 10)
-        alpha = 0.9 * np.log10(x*self.d) - 2.4
-        alpha[alpha > 1] = 1
-        alpha[alpha < 0] = 0
-        global df
-        df = pd.DataFrame({'Frequency': x, 'Absorption Coefficient': alpha})
-        fig.add_trace(go.Scatter(x=x, y=alpha, mode='lines'))
-        fig.update_layout(yaxis_range=[0, 1.1])
-        fig.update_xaxes(showgrid=True)
-        fig.update_layout(title='Absorption coefficient of a {} mm material'.format(self.d),
-                          xaxis_title='Frequency in [Hz]',
-                          yaxis_title='Absorption Coefficient')
-        return fig
-    
-    def data(self):
-        return df
-
-
 # Define a function that converts a dataframe to a CSV file
-@st.cache(show_spinner=False)
+@st.cache_data(show_spinner=False)
 def _convert_df(df: pd.DataFrame):
     return df.to_csv().encode("utf-8")
 
@@ -81,21 +47,6 @@ def create_df_export_button(
         mime="text/csv",
     )
 
-# Define a function that creates an input field for a number
-def create_input_field():
-    """Creates a Streamlit input field to enter a number.
-
-    Returns:
-        int: Streamlit input field returning an integer.
-    """
-    return st.number_input(
-        label="Select material Nr. 2 thickness [mm]:",
-        min_value=0,
-        max_value=100,
-        value=50,
-        step=1,
-    )
-
 # Define the transfer matrix method function
 def tmm(
         k1: float,
@@ -134,6 +85,7 @@ def plotly_go_line(x,y,x_label,y_label,title):
     fig.update_layout(title=title,
                     xaxis_title=x_label,
                     yaxis_title=y_label,
+                    yaxis_range=[0, 1],
                     width=1000,
                     height=500)
     return fig

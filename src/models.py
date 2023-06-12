@@ -3,7 +3,7 @@ import numpy as np
 class AbsorberModelInterface:
     # an interface upon which each absorber model will be implemented
 
-    f = dichte = phi = alpha_unend = sigma = gamma = P0 =  viskosität_L = \
+    f = dichte = phi = alpha_unend = sigma = gamma = P0 = viskosität_L = \
          thermisch_L = Pr = viskosität = 0.0
     
     def __init__(self, f, dichte, phi, alpha_unend, sigma, gamma, P0,  viskosität_L, \

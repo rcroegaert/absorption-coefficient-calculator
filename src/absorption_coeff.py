@@ -1,6 +1,5 @@
-import models
+from src import models, utils
 import numpy as np
-import utils
 
 class AbsorptionCoeff:
 
