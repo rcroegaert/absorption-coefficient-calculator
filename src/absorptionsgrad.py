@@ -1,24 +1,24 @@
 from src import models, utils
 import numpy as np
 
-class AbsorptionCoeff:
+class Absorptionsgrad:
 
     # soll das hier auch in utils.py eurer Meinung nach?
     # absorber_layers sollte auch eine Liste von Modellen sein können
 
-    def __init__(self, L1, L2, f_min, f_max, absorber_layers: models.AbsorberModelInterface, air_density, air_c, angle):
+    def __init__(self, theta, L1, L2, f_min, f_max, absorber_layers: models.AbsorberModelInterface, luft_dichte, luft_c):
         self.alphas = np.array([])
+        self.theta = theta
         self.L1 = L1
         self.L2 = L2
         self.f_min = f_min
         self.f_max = f_max
         self.absorber_layers = absorber_layers
-        self.air_density = air_density # luft_dichte
-        self.air_c = air_c # Luft_c
-        self.impedance = self.air_density * self.air_c
-        self.angle = angle # Einfallswinkel
+        self.luft_dichte = luft_dichte # luft_dichte
+        self.luft_c = luft_c # Luft_c
+        self.impedance = self.luft_dichte * self.luft_c
 
-    def absorption_coeffs(self):
+    def abs_coeff(self):
         # Initialize List of TMMs and alphas with the size of the freq range
         T_total = self.alphas = [None for _ in range(int(self.f_max) - int(self.f_min))]
         
@@ -28,16 +28,17 @@ class AbsorptionCoeff:
 
             for f in range(int(self.f_min), int(self.f_max)):
                 try:
-                    self.absorber_layers[layer].set_f(f) 
+                    self.absorber_layers[layer].set_f(f)
                     Z1 = self.absorber_layers[layer].get_Zp()
+                    k0 = 2 * np.pi * f / self.luft_c
                     k1 = self.absorber_layers[layer].get_kp()
-                    k2 = 2 * np.pi * f / self.air_c
+                    k2 = 2 * np.pi * f / self.luft_c
                     
                     # Berechnung der TMM-Matrix
                     if not T_total[freq_index]:
-                        T_total[freq_index] = utils.tmm(k1,self.L1,Z1,k2,self.L2,self.impedance)
+                        T_total[freq_index] = utils.tmm(self.theta,k0,k1,self.L1,Z1,k2,self.L2,self.impedance)
                     else:
-                        T_total[freq_index] = np.matmul(T_total, utils.tmm(k1,self.L1,Z1,k2,self.L2,self.impedance))
+                        T_total[freq_index] = np.matmul(T_total, utils.tmm(self.theta,k1,self.L1,Z1,k2,self.L2,self.impedance))
 
                     # Absorptionsgrad berechnen -> gehört das in tmm-fkt?
                     R = (T_total[freq_index][0, 0] - T_total[freq_index][1, 0]*self.impedance) / (T_total[freq_index][0, 0] + T_total[freq_index][1, 0]*self.impedance) # Reflexionskoeffizient

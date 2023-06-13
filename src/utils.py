@@ -48,24 +48,60 @@ def create_df_export_button(
     )
 
 # Define the transfer matrix method function
+# def tmm(
+#         k1: float,
+#         L1: float,
+#         Z1: float,
+#         k2: float,
+#         L2: float,
+#         Z2: float
+#     ) -> None:
+#
+#     # T1, T2, T3 definieren
+#     T1 = np.array([[np.cos(k1*L1), 1j*Z1*np.sin(k1*L1)],
+#                    [(1j/Z1)*np.sin(k1*L1), np.cos(k1*L1)]])
+#
+#     T2 = np.array([[np.cos(k2*L2), 1j*Z2*np.sin(k2*L2)],
+#                    [(1j/Z2)*np.sin(k2*L2), np.cos(k2*L2)]])
+#
+#     # Rigid Backed -> das wird erstmal nicht benutzt?
+#     T3 = np.array([[1, 0],
+#                    [0, 1]])
+#
+#     # T_total berechnen
+#     T_total = np.dot(T1, T2)
+#
+#     return T_total
+
+
 def tmm(
+        theta: float,
+        k0: float,
         k1: float,
         L1: float,
         Z1: float,
         k2: float,
         L2: float,
         Z2: float
-    ) -> None:
-    
+):
+    ## neue k_pz bei Eingallswinkel theta
+    k_0x = k0 * np.sin(theta)
+    k_1x = k_0x
+    k_2x = k2 * np.sin(theta)
+
+    k_1z = np.sqrt(k1 ** 2 - k_1x ** 2)
+    k_2z = np.sqrt(k2 ** 2 - k_2x ** 2)
+
     # T1, T2, T3 definieren
-    T1 = np.array([[np.cos(k1*L1), 1j*Z1*np.sin(k1*L1)],
-                   [(1j/Z1)*np.sin(k1*L1), np.cos(k1*L1)]])
 
-    T2 = np.array([[np.cos(k2*L2), 1j*Z2*np.sin(k2*L2)],
-                   [(1j/Z2)*np.sin(k2*L2), np.cos(k2*L2)]])
+    T1 = np.array([[np.cos(k_1z * L1), 1j * Z1 * (k1 / k_1z) * np.sin(k_1z * L1)],
+                   [(1j / Z1) * (k_1z / k1) * np.sin(k_1z * L1), np.cos(k_1z * L1)]])
 
-    # Rigid Backed -> das wird erstmal nicht benutzt?
-    T3 = np.array([[1, 0],  
+    T2 = np.array([[np.cos(k_2z * L2), 1j * Z2 * (k2 / k_2z) * np.sin(k_2z * L2)],
+                   [(1j / Z2) * (k_2z / k2) * np.sin(k_2z * L2), np.cos(k_2z * L2)]])
+
+    # Rigid Backed
+    T3 = np.array([[1, 0],
                    [0, 1]])
 
     # T_total berechnen
