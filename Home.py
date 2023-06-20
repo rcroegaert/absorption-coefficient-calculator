@@ -2,10 +2,10 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
-from src import utils, models, absorptionsgrad
+from src import utils, models_new, absorptioncoeff_new
 
 st.set_page_config(
-    page_title="Poröser Absorber",
+    page_title="Absorptionsgrad Rechner",
     layout="wide"
 )
 # --- Initialising SessionState ---
@@ -79,29 +79,48 @@ with st.expander('Werte ein/ausblenden...'):
 st.markdown('----')
 
 # Variablen definieren TODO: Weg damit später
-air_c = 331.3 * np.sqrt(1 + (air_temp / 273.15))
 air_density = (air_pressure) / (287.058 * (air_temp + 273.15))
+air_speed = 331.3 * np.sqrt(1 + (air_temp / 273.15))
+sigma = material_dict["Material 1"][2]
+L1 = material_dict["Material 1"][0] / 1000
+viscosity = 17.240165625*10**(-6) * (273.15+air_temp/273.15)**(3/2) / (273.15+110.4/273.15+air_temp+110.4)
+
 phi = 0.98
 alpha_inf = 1.01
-sigma = material_dict["Material 1"][2]
 gamma = 1.4
 P0 = 101325  # Pa
 viscosity_L = 85 * 10 ** (-6)
 therm_L = viscosity_L * 2
 Pr = 0.71
-viscosity = 1.839 * 10 ** (-5)
-impedance = air_density * air_c
-Z2 = impedance
-Z0 = impedance
-L1 = material_dict["Material 1"][0] / 1000
+# viscosity = 1.839 * 10 ** (-5)
+#impedance = air_density * air_c
+#Z2 = impedance
+#Z0 = impedance
+
 L2 = material_dict["Material 2"][0] / 1000
 
 # ################## Berechnung ##################
-por_abs = models.Porous_Absorber(f_range[0], air_density, phi, alpha_inf, sigma,
-                                 gamma, P0, viscosity_L, therm_L, Pr, viscosity)
-coeffs = absorptionsgrad.Absorptionsgrad(theta, L1, L2, f_min, f_max, [por_abs],
-                                         air_density, air_c)
-alphas = coeffs.abs_coeff()
+
+# por_abs = models.Porous_Absorber(f_range[0], air_density, phi, alpha_inf, sigma,
+#                                  gamma, P0, viscosity_L, therm_L, Pr, viscosity)
+# alphas = absorptioncoeff_new.AbsorptionCoeff(theta, L1, L2, f_min, f_max, [por_abs],
+#                                          air_density, air_c).abs_coeff()
+
+alphas = np.array([])
+st.write(f_range[0], air_density, air_speed, sigma, L1, viscosity, theta)
+for f in f_range:
+    # Porous
+    # T1 = models_new.Porous_Absorber(f, air_density, air_speed, sigma, L1, viscosity, theta).get_Tp()
+
+    # Perforated
+    T1 = models_new.PerforatedPlate_Absorber(f, air_density, air_speed, sigma, L2, viscosity, theta,
+                                              d_hole=0.02, a=0.02).get_Tp()
+
+    T2 = np.array([[1, 0],
+                   [0, 1]])
+    T = [T1, T2]
+    # alphas.append(absorptioncoeff_new.AbsorptionCoeff(T, theta).abs_coeff())
+    alphas = np.append(alphas, absorptioncoeff_new.AbsorptionCoeff(T, theta).abs_coeff())
 
 ################## Output Section ##################
 # Plotting

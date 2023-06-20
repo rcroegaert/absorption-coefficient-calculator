@@ -5,3 +5,4 @@ pendulum
 plotly
 streamlit
 tabulate
+scipy
