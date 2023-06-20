@@ -6,7 +6,7 @@ class Absorptionsgrad:
     # soll das hier auch in utils.py eurer Meinung nach?
     # absorber_layers sollte auch eine Liste von Modellen sein können
 
-    def __init__(self, theta, L1, L2, f_min, f_max, absorber_layers: models.AbsorberModelInterface, luft_dichte, luft_c):
+    def __init__(self, theta, L1, L2, f_min, f_max, absorber_layers: models.AbsorberModelInterface, air_density, air_c):
         self.alphas = np.array([])
         self.theta = theta
         self.L1 = L1
@@ -14,9 +14,9 @@ class Absorptionsgrad:
         self.f_min = f_min
         self.f_max = f_max
         self.absorber_layers = absorber_layers
-        self.luft_dichte = luft_dichte # luft_dichte
-        self.luft_c = luft_c # Luft_c
-        self.impedance = self.luft_dichte * self.luft_c
+        self.air_density = air_density # air_density
+        self.air_c = air_c # air_c
+        self.impedance = self.air_density * self.air_c
 
     def abs_coeff(self):
         # Initialize List of TMMs and alphas with the size of the freq range
@@ -30,9 +30,9 @@ class Absorptionsgrad:
                 try:
                     self.absorber_layers[layer].set_f(f)
                     Z1 = self.absorber_layers[layer].get_Zp()
-                    k0 = 2 * np.pi * f / self.luft_c
+                    k0 = 2 * np.pi * f / self.air_c
                     k1 = self.absorber_layers[layer].get_kp()
-                    k2 = 2 * np.pi * f / self.luft_c
+                    k2 = 2 * np.pi * f / self.air_c
                     
                     # Berechnung der TMM-Matrix
                     if not T_total[freq_index]:
