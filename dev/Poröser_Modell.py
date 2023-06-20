@@ -35,11 +35,11 @@ with st.expander('Werte ein/ausblenden...'):
 
     col1, col2, col3 = st.columns(3)
     col1.markdown('##### Lufttemperatur')
-    luft_temp = col1.number_input('in [°C]', step=1, value=20)
+    air_temp = col1.number_input('in [°C]', step=1, value=20)
     col2.markdown('##### Luftdruck')
-    luft_druck = col2.number_input('in [Pa]', step=1, value=101325)
+    air_pressure = col2.number_input('in [Pa]', step=1, value=101325)
     col3.markdown('##### Einfallswinkel')
-    winkel = col3.number_input('in [°]', step=1, value=0)
+    angle = col3.number_input('in [°]', step=1, value=0)
 
 st.markdown('----')
 
@@ -81,15 +81,15 @@ with st.expander('Werte ein/ausblenden...'):
 st.markdown('----')
 
 
-luft_c = 344
+air_c = 344
 # st.write('luft_c =', luft_c)
-luft_dichte = 1.213
+air_density = 1.213
 # st.write('luft_dichte =', luft_dichte)
-dichte = 1.213
+density = 1.213
 # st.write('Dichte =', dichte)
 phi = 0.98
 # st.write('phi =', phi)
-alpha_unend = 1.01
+alpha_inf = 1.01
 # st.write('alpha_unend =', alpha_unend)
 sigma = 20600
 # st.write('sigma =', sigma)
@@ -97,18 +97,18 @@ gamma = 1.4
 # st.write('gamma =', gamma)
 P0 = 101325 # Pa
 # st.write('P0 =', P0)
-viskosität_L = 85*10**(-6)
+viscosity_L = 85*10**(-6)
 # st.write('viskosität_L =', viskosität_L)
-thermisch_L = viskosität_L*2
+therm_L = viscosity_L*2
 # st.write('thermisch_L =', thermisch_L)
 Pr = 0.71
 # st.write('Pr =', Pr)
-viskosität = 1.839*10**(-5)
+viscosity = 1.839*10**(-5)
 # st.write('viskosität =', viskosität)
 
-impedanz = luft_dichte * luft_c
-Z2 = impedanz
-Z0 = impedanz
+impedance = air_density * air_c
+Z2 = impedance
+Z0 = impedance
 # st.write('Impedanz =', impedanz)
 
 L1 = material_dict["Material 1"][0] / 1000
@@ -119,10 +119,10 @@ alphas = np.array([])
 for f in f_range:
     # Berechnung der Impedanz und Wellenzahl mit Poröser Modell
     try:
-        Z1, k1 = models.JAC(f, dichte, phi, alpha_unend, sigma, gamma, P0, viskosität_L, thermisch_L, Pr, viskosität)
+        Z1, k1 = models.JAC(f, density, phi, alpha_inf, sigma, gamma, P0, viscosity_L, therm_L, Pr, viscosity)
     except (ZeroDivisionError, ValueError):
         print('biite richtig Zahl eingeben')
-    k2 = 2 * np.pi * f / luft_c
+    k2 = 2 * np.pi * f / air_c
 
     # Berechnung der TMM-Matrix
     T_total = utils.tmm(k1,L1,Z1,k2,L2,Z2)

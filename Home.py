@@ -32,7 +32,7 @@ with st.expander('Werte ein/ausblenden...'):
 
     col1, col2, col3 = st.columns(3)
     col1.markdown('##### Lufttemperatur')
-    luft_temp = col1.number_input('in [°C]', step=1, value=20)
+    air_temp = col1.number_input('in [°C]', step=1, value=20)
     col2.markdown('##### Luftdruck')
     luft_druck = col2.number_input('in [Pa]', step=1, value=101325)
     col3.markdown('##### Einfallswinkel')
@@ -79,8 +79,8 @@ with st.expander('Werte ein/ausblenden...'):
 st.markdown('----')
 
 # Variablen definieren TODO: Weg damit später
-luft_c = 331.3 * np.sqrt(1 + (luft_temp / 273.15))
-luft_dichte = (luft_druck) / (287.058 * (luft_temp + 273.15))
+luft_c = 331.3 * np.sqrt(1 + (air_temp / 273.15))
+luft_dichte = (luft_druck) / (287.058 * (air_temp + 273.15))
 phi = 0.98
 alpha_unend = 1.01
 sigma = material_dict["Material 1"][2]

@@ -47,33 +47,7 @@ def create_df_export_button(
         mime="text/csv",
     )
 
-# Define the transfer matrix method function
-# def tmm(
-#         k1: float,
-#         L1: float,
-#         Z1: float,
-#         k2: float,
-#         L2: float,
-#         Z2: float
-#     ) -> None:
-#
-#     # T1, T2, T3 definieren
-#     T1 = np.array([[np.cos(k1*L1), 1j*Z1*np.sin(k1*L1)],
-#                    [(1j/Z1)*np.sin(k1*L1), np.cos(k1*L1)]])
-#
-#     T2 = np.array([[np.cos(k2*L2), 1j*Z2*np.sin(k2*L2)],
-#                    [(1j/Z2)*np.sin(k2*L2), np.cos(k2*L2)]])
-#
-#     # Rigid Backed -> das wird erstmal nicht benutzt?
-#     T3 = np.array([[1, 0],
-#                    [0, 1]])
-#
-#     # T_total berechnen
-#     T_total = np.dot(T1, T2)
-#
-#     return T_total
-
-
+# Define transfer matrix methode
 def tmm(
         theta: float,
         k0: float,
