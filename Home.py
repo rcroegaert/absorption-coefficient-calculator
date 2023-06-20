@@ -34,7 +34,7 @@ with st.expander('Werte ein/ausblenden...'):
     col1.markdown('##### Lufttemperatur')
     air_temp = col1.number_input('in [°C]', step=1, value=20)
     col2.markdown('##### Luftdruck')
-    luft_druck = col2.number_input('in [Pa]', step=1, value=101325)
+    air_pressure = col2.number_input('in [Pa]', step=1, value=101325)
     col3.markdown('##### Einfallswinkel')
     theta = col3.number_input('in [°]', step=1, value=0)
 
@@ -65,7 +65,7 @@ with st.expander('Werte ein/ausblenden...'):
             material_dict[key] = [value1, value2, 0, 0, 0]
         else:
             value3 = column.number_input(f"Strömungswiderstand [Ns/m^4]", key=f"value3_{i}", format='%e')
-            # value4 = column.number_input(f"Viskosität", key=f"value4_{i}", format='%0f')
+            # value4 = column.number_input(f"viscosity", key=f"value4_{i}", format='%0f')
             # value5 = column.number_input(f"Thermische", key=f"value5_{i}", format='%0f', value=value4*2)
             material_dict[key] = [value1, value2, value3]
 
@@ -79,28 +79,28 @@ with st.expander('Werte ein/ausblenden...'):
 st.markdown('----')
 
 # Variablen definieren TODO: Weg damit später
-luft_c = 331.3 * np.sqrt(1 + (air_temp / 273.15))
-luft_dichte = (luft_druck) / (287.058 * (air_temp + 273.15))
+air_c = 331.3 * np.sqrt(1 + (air_temp / 273.15))
+air_density = (air_pressure) / (287.058 * (air_temp + 273.15))
 phi = 0.98
-alpha_unend = 1.01
+alpha_inf = 1.01
 sigma = material_dict["Material 1"][2]
 gamma = 1.4
 P0 = 101325  # Pa
-viskosität_L = 85 * 10 ** (-6)
-thermisch_L = viskosität_L * 2
+viscosity_L = 85 * 10 ** (-6)
+therm_L = viscosity_L * 2
 Pr = 0.71
-viskosität = 1.839 * 10 ** (-5)
-impedanz = luft_dichte * luft_c
-Z2 = impedanz
-Z0 = impedanz
+viscosity = 1.839 * 10 ** (-5)
+impedance = air_density * air_c
+Z2 = impedance
+Z0 = impedance
 L1 = material_dict["Material 1"][0] / 1000
 L2 = material_dict["Material 2"][0] / 1000
 
 # ################## Berechnung ##################
-por_abs = models.Porous_Absorber(f_range[0], luft_dichte, phi, alpha_unend, sigma,
-                                 gamma, P0, viskosität_L, thermisch_L, Pr, viskosität)
+por_abs = models.Porous_Absorber(f_range[0], air_density, phi, alpha_inf, sigma,
+                                 gamma, P0, viscosity_L, therm_L, Pr, viscosity)
 coeffs = absorptionsgrad.Absorptionsgrad(theta, L1, L2, f_min, f_max, [por_abs],
-                                         luft_dichte, luft_c)
+                                         air_density, air_c)
 alphas = coeffs.abs_coeff()
 
 ################## Output Section ##################
