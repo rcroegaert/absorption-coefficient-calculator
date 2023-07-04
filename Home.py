@@ -110,15 +110,16 @@ L2 = material_dict["Material 2"][0] / 1000
 alphas = np.array([])
 st.write(f_range[0], air_density, air_speed, sigma, L1, L2, viscosity, theta)
 for f in f_range:
+    kx = 2 * np.pi * f / air_speed * np.sin(theta)
     # Porous
-    # T1 = models_new.Porous_Absorber(f, air_density, air_speed, sigma, L1, viscosity, theta).get_Tp()
+    # T1 = models_new.Porous_Absorber(f, air_density, air_speed, sigma, L1, viscosity, kx).get_T()
 
     # Perforated
-    T1 = models_new.PerforatedPlate_Absorber(f, air_density, air_speed, sigma, L2, viscosity, theta,
-                                              d_hole=0.02, a=0.05).get_Tp()
+    # T1 = models_new.PerforatedPlate_Absorber(f, air_density, air_speed, sigma, L2, viscosity, kx,
+    #                                           d_hole=0.001, a=0.003).get_T()
 
     # Air
-    T2 = models_new.Air_Absorber(f, air_density, air_speed, sigma, L2, viscosity, theta).get_Tp()
+    T2 = models_new.Air_Absorber(f, air_density, air_speed, sigma, L2, viscosity, kx).get_T()
 
     # Rigid back
     # T2 = np.array([[1, 0],
@@ -127,8 +128,8 @@ for f in f_range:
     # T = [T1, T2]
     # alphas = np.append(alphas, absorptioncoeff_new.AbsorptionCoeff(T, theta).abs_coeff())
 
-    # T_total = np.dot(T1,T2)
-    T_total = T1
+    T_total = np.matmul(T1, T2)
+    # T_total = T1
     R = (T_total[0, 0] * np.cos(theta) - Z0*T_total[1, 0]) / (T_total[0, 0] * np.cos(theta) + Z0*T_total[1, 0])
     alpha = 1 - (np.abs(R) ** 2)
     alphas = np.append(alphas, alpha)
