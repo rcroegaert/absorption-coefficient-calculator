@@ -24,7 +24,7 @@ class AbsorberModelInterface:
         self.viscosity = viscosity
 
 
-class Porous_Absorber(AbsorberModelInterface):
+class Porous_Absorber_DB(AbsorberModelInterface):
     """Delany & Bazley Empirical Model
 
     Args:
@@ -66,6 +66,80 @@ class Porous_Absorber(AbsorberModelInterface):
         return T
 
 
+class Porous_Absorber_JAC(AbsorberModelInterface):
+    """JAC
+
+    Args:
+        f (float): Frequency
+        air_density (float): Density of air
+        air_speed (float): Speed of air
+        sigma (float): Flow resistivity
+        kx (float): Wave number in x direction
+        phi (float): Porosity
+        alpha_inf (float): Tortuosity
+        gamma (float): Specific heat ratio
+        kappa (float): Thermal conductivity
+        cp (float): Specific heat capacity
+        K0 (float): Bulk modulus
+        delta_v (float): Viscous boundary layer thickness
+        delta_h (float): Thermal boundary layer thickness
+        Pr (float): Prandtl number
+
+
+    Returns:
+        Z (float): Surface impedance
+        k (float): Wave number
+        T (float): Transfer Matrix of the absorber
+    """
+
+    def __init__(self, f, air_density, air_speed, sigma, L1, viscosity, air_pressure, phi, alpha_inf, kx):
+        super().__init__(f, air_density, air_speed, sigma, L1, viscosity)
+
+        self.air_pressure = air_pressure
+        self.phi = phi
+        self.alpha_inf = alpha_inf
+        self.kx = kx
+        self.gamma = 1.4
+        self.K0 = self.omega * self.air_pressure
+        self.kappa = 0.0241
+        self.cp = 1.01
+        self.delta_v = np.sqrt(2 * self.viscosity / (self.air_density * self.omega))
+        self.delta_h = np.sqrt(2 * self.kappa / (self.air_density * self.omega * self.cp))
+        self.Pr = (self.delta_v / self.delta_h) ** 2
+        self.viscosity_L = 1 / 1 * np.sqrt(8 * self.viscosity * self.alpha_inf / (self.phi * self.sigma))
+        self.thermal_L = 2 * self.viscosity_L  # simpler formulations
+
+        self.G1 = self.sigma * self.phi / (self.alpha_inf * self.air_density * self.omega)
+        self.G2 = 4 * ((self.alpha_inf) ** 2) * self.air_density * self.viscosity * self.omega \
+                  / ((self.sigma * self.phi * self.viscosity_L) ** 2)
+
+        self.G1_dot = 8 * self.viscosity / (self.air_density * self.Pr * ((self.thermal_L) ** 2) * self.omega)
+        self.G2_dot = self.air_density * self.Pr * ((self.thermal_L) ** 2) * self.omega / (16 * self.viscosity)
+        self.density_p = self.air_density * self.alpha_inf * (1 - 1j * self.G1 * np.sqrt(1 + 1j * self.G2)) / self.phi
+        self.Kp = self.K0 * self.phi ** (-1) / (self.gamma - (self.gamma - 1) *
+                                                ((1 - 1j * self.G1_dot * np.sqrt(1+1j*self.G2_dot)) ** -1))
+
+    def calculate_aux_values(self):
+        pass
+
+    def get_k(self):
+        k = self.omega * np.sqrt(self.density_p / self.Kp)
+        return k
+
+    def get_Z(self):
+        Z = np.sqrt(self.density_p * self.Kp)
+        return Z
+
+    def get_T(self):
+        k = self.get_k()
+        Z = self.get_Z()
+        k_z = np.sqrt(k ** 2 - self.kx ** 2)
+
+        T = np.array([[np.cos(k_z * self.L1), 1j * Z * (k / k_z) * np.sin(k_z * self.L1)],
+                      [(1j / Z) * (k_z / k) * np.sin(k_z * self.L1), np.cos(k_z * self.L1)]])
+        return T
+
+
 class PerforatedPlate_Absorber(AbsorberModelInterface):
     """MAA´s Model
 
@@ -104,16 +178,16 @@ class PerforatedPlate_Absorber(AbsorberModelInterface):
         J_0 = jv(0, self.s * np.sqrt(-1j))
         J_1 = jv(1, self.s * np.sqrt(-1j))
         Z = (np.sqrt(2 * self.air_density * self.omega * self.viscosity) / 2 * self.phi +
-              1j * (self.omega * self.air_density / self.phi) * (0.85 * self.d_hole / self.F_e +
-                                                                 self.L1 * (1 - (2 / (self.s * np.sqrt(-1j))) *
-                                                                            (J_1 * np.sqrt(
-                                                                                self.s * -1j) / J_0 * np.sqrt(
-                                                                                self.s * -1j))) ** (-1)))
+             1j * (self.omega * self.air_density / self.phi) * (0.85 * self.d_hole / self.F_e +
+                                                                self.L1 * (1 - (2 / (self.s * np.sqrt(-1j))) *
+                                                                           (J_1 * np.sqrt(
+                                                                               self.s * -1j) / J_0 * np.sqrt(
+                                                                               self.s * -1j))) ** (-1)))
         return Z
 
     def get_T(self):
         T = np.array([[1, self.get_Z()],
-                       [0, 1]])
+                      [0, 1]])
         return T
 
 
@@ -139,5 +213,5 @@ class Air_Absorber(AbsorberModelInterface):
         Z = self.get_Z()
         k_z = np.sqrt(k ** 2 - self.kx ** 2)
         T = np.array([[np.cos(k_z * self.L1), 1j * Z * (k / k_z) * np.sin(k_z * self.L1)],
-                       [(1j / Z) * (k_z / k) * np.sin(k_z * self.L1), np.cos(k_z * self.L1)]])
+                      [(1j / Z) * (k_z / k) * np.sin(k_z * self.L1), np.cos(k_z * self.L1)]])
         return T
