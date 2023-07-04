@@ -1,5 +1,6 @@
 from src import models, utils
 import numpy as np
+import streamlit as st
 
 class AbsorptionCoeff:
     '''Absorption coefficient calculator for a given frequency range and a given angle of incidence.
@@ -31,5 +32,5 @@ class AbsorptionCoeff:
             T_total = np.dot(T_total, self.T[i])
 
         R = (T_total[0, 0]*np.cos(self.theta) - T_total[1, 0]) / (T_total[0, 0]*np.cos(self.theta) + T_total[1, 0])
-        alpha = 1 - np.abs(R) ** 2
+        alpha = 1 - (np.abs(R) ** 2)
         return alpha
