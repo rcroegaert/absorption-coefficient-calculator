@@ -10,19 +10,17 @@ class AbsorberModelInterface:
         f (float): Frequency
         air_density (float): Density of air
         air speed (float): Speed of air
-        sigma (float): Flow resistivity of material
         L (float): Thickness of the layer
         viscosity (float): Viscosity of air
         omega (float): Angular frequency
     """
 
-    f = air_density = sigma = omega = 0.0
+    f = air_density = omega = 0.0
 
-    def __init__(self, f, air_density, air_speed, sigma, L1, viscosity):
+    def __init__(self, f, air_density, air_speed, L1, viscosity):
         self.f = f
         self.air_density = air_density
         self.air_speed = air_speed
-        self.sigma = sigma
         self.L1 = L1
         self.omega = 2 * np.pi * self.f
         self.viscosity = viscosity
@@ -48,9 +46,10 @@ class Porous_Absorber_DB(AbsorberModelInterface):
         T (float): Transfer Matrix of the absorber
     """
 
-    def __init__(self, f, air_density, air_speed, sigma, L1, viscosity, kx):
-        super().__init__(f, air_density, air_speed, sigma, L1, viscosity)
+    def __init__(self, f, air_density, air_speed, L1, viscosity, sigma, kx):
+        super().__init__(f, air_density, air_speed, L1, viscosity)
 
+        self.sigma = sigma
         self.kx = kx
         self.X = (self.air_density * self.f) / self.sigma
 
@@ -106,9 +105,10 @@ class Porous_Absorber_JAC(AbsorberModelInterface):
         T (float): Transfer Matrix of the absorber
     """
 
-    def __init__(self, f, air_density, air_speed, sigma, L1, viscosity, air_pressure, phi, alpha_inf, kx):
-        super().__init__(f, air_density, air_speed, sigma, L1, viscosity)
+    def __init__(self, f, air_density, air_speed, L1, viscosity, sigma, air_pressure, phi, alpha_inf, kx):
+        super().__init__(f, air_density, air_speed, L1, viscosity)
 
+        self.sigma = sigma
         self.air_pressure = air_pressure
         self.phi = phi
         self.alpha_inf = alpha_inf
@@ -161,7 +161,6 @@ class PerforatedPlate_Absorber(AbsorberModelInterface):
         f (float): Frequency
         air_density (float): Density of air
         air speed (float): Speed of air
-        sigma (float): Flow resistivity of material
         L (float): Thickness of the layer
         viscosity (float): Viscosity of air
 
@@ -180,8 +179,8 @@ class PerforatedPlate_Absorber(AbsorberModelInterface):
         T (float): Transfer Matrix of the absorber
     """
 
-    def __init__(self, f, air_density, air_speed, sigma, L1, viscosity, d_hole, a):
-        super().__init__(f, air_density, air_speed, sigma, L1, viscosity)
+    def __init__(self, f, air_density, air_speed, L1, viscosity, d_hole, a):
+        super().__init__(f, air_density, air_speed, L1, viscosity)
 
         self.d_hole = d_hole
         self.a = a
@@ -202,11 +201,6 @@ class PerforatedPlate_Absorber(AbsorberModelInterface):
         Z = ((np.sqrt(2 * self.air_density * self.omega * self.viscosity) / 2 * self.phi) +
              1j * (self.omega * self.air_density / self.phi) * (0.85 * self.d_hole / self.F_e +
                                                                 self.L1 * (1 - 2*J_1/(self.s*np.sqrt(-1j))/J_0)**(-1)))
-
-                                                                # (1 - (2 / (self.s * np.sqrt(-1j))) *
-                                                                #            (J_1 * np.sqrt(
-                                                                #                self.s * -1j) / J_0 * np.sqrt(
-                                                                #                self.s * -1j))) ** (-1)))
         return Z
 
     def get_T(self):
@@ -222,7 +216,6 @@ class Air_Absorber(AbsorberModelInterface):
         f (float): Frequency
         air_density (float): Density of air
         air speed (float): Speed of air
-        sigma (float): Flow resistivity of material
         L (float): Thickness of the layer
         viscosity (float): Viscosity of air
 
@@ -234,8 +227,8 @@ class Air_Absorber(AbsorberModelInterface):
         T (float): Transfer Matrix of the absorber
     """
 
-    def __init__(self, f, air_density, air_speed, sigma, L1, viscosity, kx):
-        super().__init__(f, air_density, air_speed, sigma, L1, viscosity)
+    def __init__(self, f, air_density, air_speed, L1, viscosity, kx):
+        super().__init__(f, air_density, air_speed, L1, viscosity)
 
         self.kx = kx
 
