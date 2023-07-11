@@ -64,7 +64,12 @@ with st.expander('Werte ein/ausblenden...'):
             value6 = column.number_input(f"Lochdurchmesser [mm]", key=f"value6_{i}", format='%0f')
             value7 = column.number_input(f"Lochabstand [mm]", key=f"value7_{i}", format='%0f')
             material_dict[key] = [value1, value2, value6, value7]
-        # if value1 == 'Platte':
+        if value1 == 'Platte':
+            value8 = column.number_input(f"Materialdichte [kg/m^3]", key=f"value8_{i}", format='%0f')
+            value9 = column.number_input(f"Elastizitätsmodul [Pa]", key=f"value9_{i}", format='%e', value=4.1*10**9)
+            value10 = column.number_input(f"Nu", key=f"value10_{i}", format='%0f', value=0.3)
+            value11 = column.number_input(f"Verlustfaktor", key=f"value11_{i}", format='%0f', value=0.1)
+            material_dict[key] = [value1, value2, value8, value9, value10, value11]
         if value1 == 'Luft':
             material_dict[key] = [value1, value2]
 
@@ -104,6 +109,12 @@ try:
                 d_hole = material_dict[key][2]
                 a = material_dict[key][3]
                 T.append(models.PerforatedPlate_Absorber(f, air_density, air_speed, L1, viscosity, d_hole, a).get_T())
+            if material_dict[key][0] == 'Platte':
+                density = material_dict[key][2]
+                E = material_dict[key][3]
+                nu = material_dict[key][4]
+                eta = material_dict[key][5]
+                T.append(models.Plate_Absorber(f, air_density, air_speed, L1, viscosity, theta, density, E, nu, eta).get_T())
             if material_dict[key][0] == 'Luft':
                 T.append(models.Air_Absorber(f, air_density, air_speed, L1, viscosity, kx).get_T())
 

@@ -101,7 +101,7 @@ class PerforatedPlate_Absorber(AbsorberModelInterface):
         F_e = (1 - 1.4092 * e + 0.33818 * (e ** 3) + 0.06793 * (e ** 5) - 0.02287 * (e ** 6) + 0.03015 * (
                     e ** 7) - 0.01641 * (e ** 8)) ** (-1) # Fok function - reactive part considering hole edge effects
 
-        J_0 = jv(0, s * np.sqrt(-1j))  # J0 and J1 are the Bessel functions of the zero order and the first order
+        J_0 = jv(0, s * np.sqrt(-1j))  # J0 and J1 are the Bessel src of the zero order and the first order
         J_1 = jv(1, s * np.sqrt(-1j))
 
         k0 = omega / c0  # wavenumber in medium
