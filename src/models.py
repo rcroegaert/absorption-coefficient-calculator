@@ -70,7 +70,7 @@ class Porous_Absorber_DB(AbsorberModelInterface):
         k_z = np.sqrt(k ** 2 - self.kx ** 2)
 
         T = np.array([[np.cos(k_z * self.L1), 1j * Z * (k / k_z) * np.sin(k_z * self.L1)],
-                       [(1j / Z) * (k_z / k) * np.sin(k_z * self.L1), np.cos(k_z * self.L1)]])
+                      [(1j / Z) * (k_z / k) * np.sin(k_z * self.L1), np.cos(k_z * self.L1)]])
         return T
 
 
@@ -131,7 +131,7 @@ class Porous_Absorber_JAC(AbsorberModelInterface):
         self.G2_dot = self.air_density * self.Pr * ((self.thermal_L) ** 2) * self.omega / (16 * self.viscosity)
         self.density_p = self.air_density * self.alpha_inf * (1 - 1j * self.G1 * np.sqrt(1 + 1j * self.G2)) / self.phi
         self.Kp = self.K0 * self.phi ** (-1) / (self.gamma - (self.gamma - 1) *
-                                                ((1 - 1j * self.G1_dot * np.sqrt(1+1j*self.G2_dot)) ** -1))
+                                                ((1 - 1j * self.G1_dot * np.sqrt(1 + 1j * self.G2_dot)) ** -1))
 
     def calculate_aux_values(self):
         pass
@@ -182,8 +182,8 @@ class PerforatedPlate_Absorber(AbsorberModelInterface):
     def __init__(self, f, air_density, air_speed, L1, viscosity, d_hole, a):
         super().__init__(f, air_density, air_speed, L1, viscosity)
 
-        self.d_hole = d_hole
-        self.a = a
+        self.d_hole = d_hole/1000
+        self.a = a/1000
 
     def get_k(self):
         k = self.omega / self.air_speed
@@ -199,8 +199,8 @@ class PerforatedPlate_Absorber(AbsorberModelInterface):
         J_0 = jv(0, self.s * np.sqrt(-1j))
         J_1 = jv(1, self.s * np.sqrt(-1j))
         Z = ((np.sqrt(2 * self.air_density * self.omega * self.viscosity) / 2 * self.phi) +
-             1j * (self.omega * self.air_density / self.phi) * (0.85 * self.d_hole / self.F_e +
-                                                                self.L1 * (1 - 2*J_1/(self.s*np.sqrt(-1j))/J_0)**(-1)))
+             (1j * (self.omega * self.air_density / self.phi)) * (0.85 * self.d_hole / self.F_e +
+                                                self.L1 * (1 - 2 * J_1 / (self.s * np.sqrt(-1j)) / J_0) ** (-1)))
         return Z
 
     def get_T(self):

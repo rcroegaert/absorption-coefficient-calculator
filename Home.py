@@ -115,8 +115,6 @@ except:
 # Plotting
 try:
     st.header('Plot :bar_chart:')
-    titlestr = ('Absorptionsgrad eines {} mm Material'.format(
-        material_dict["Material 1"][0]) + ' bei {} mm Luftspalt'.format(material_dict["Material 2"][0]))
     fig1 = utils.plotly_go_line(x=f_range,
                                 y=alphas,
                                 x_label='Frequenz in [Hz]',
