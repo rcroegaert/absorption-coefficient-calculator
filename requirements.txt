@@ -6,3 +6,8 @@ plotly
 streamlit
 tabulate
 scipy
+mkdocs
+mkdocstrings-python
+mkdocs-material-extensions
+mkdocs-bibtex
+mdx-include
