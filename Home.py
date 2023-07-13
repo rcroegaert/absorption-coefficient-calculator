@@ -25,8 +25,10 @@ st.header('Globale Parameter :globe_with_meridians:')
 with st.expander('Werte ein/ausblenden...'):
     st.markdown('##### Frequenzbereich')
     col1, col2 = st.columns(2)
-    f_min, f_max = col1.slider('Anfangs- und Endfrequenz [Hz]', 0, 10000, (0, 10000), step=100)
+    f_min, f_max = col1.slider('Anfangs- und Endfrequenz [Hz]', 0, 20000, (0, 10000), step=10)
     f_range = np.arange(f_min, f_max, 1)
+    f_range_full = np.arange(1, 20000, 1)
+    plot_type = col2.selectbox('Plot Type', ('Graph', 'Octave Bands', '1/3 Octave Bands'))
 
     col1, col2, col3 = st.columns(3)
     col1.markdown('##### Lufttemperatur')
@@ -66,7 +68,7 @@ with st.expander('Werte ein/ausblenden...'):
             material_dict[key] = [value1, value2, value6, value7]
         if value1 == 'Platte':
             value8 = column.number_input(f"Materialdichte [kg/m^3]", key=f"value8_{i}", format='%0f')
-            value9 = column.number_input(f"Elastizitätsmodul [Pa]", key=f"value9_{i}", format='%e', value=4.1*10**9)
+            value9 = column.number_input(f"Elastizitätsmodul [Pa]", key=f"value9_{i}", format='%e', value=4.1 * 10 ** 9)
             value10 = column.number_input(f"Nu", key=f"value10_{i}", format='%0f', value=0.3)
             value11 = column.number_input(f"Verlustfaktor", key=f"value11_{i}", format='%0f', value=0.1)
             material_dict[key] = [value1, value2, value8, value9, value10, value11]
@@ -91,7 +93,7 @@ alphas = np.array([])
 
 ################## Computation ##################
 try:
-    for f in f_range:
+    for f in f_range_full:
         kx = 2 * np.pi * f / air_speed * np.sin(theta)
         T = []
 
@@ -114,7 +116,8 @@ try:
                 E = material_dict[key][3]
                 nu = material_dict[key][4]
                 eta = material_dict[key][5]
-                T.append(models.Plate_Absorber(f, air_density, air_speed, L1, viscosity, theta, density, E, nu, eta).get_T())
+                T.append(
+                    models.Plate_Absorber(f, air_density, air_speed, L1, viscosity, theta, density, E, nu, eta).get_T())
             if material_dict[key][0] == 'Luft':
                 T.append(models.Air_Absorber(f, air_density, air_speed, L1, viscosity, kx).get_T())
 
@@ -126,25 +129,67 @@ except:
 # Plotting
 try:
     st.header('Plot :bar_chart:')
-    fig1 = utils.plotly_go_line(x=f_range,
-                                y=alphas,
-                                x_label='Frequenz in [Hz]',
-                                y_label='Absorptionsgrad',
-                                title="Absorptionsgrad Plot")
-    fig1
+    if plot_type == 'Graph':
+        fig1 = utils.plotly_go_line(x=f_range,
+                                    y=alphas,
+                                    x_label='Frequenz in [Hz]',
+                                    y_label='Absorptionsgrad',
+                                    title="Absorptionsgrad Plot")
+        st.plotly_chart(fig1)
 
-    # DF anzeigen
-    col1, col2 = st.columns(2)
-    col1.subheader('Daten :books:')
-    df = pd.DataFrame({'Frequenz [Hz]': f_range, 'Absorptionsgrad [1]': alphas})
-    st.dataframe(df, height=210)
-    col2.subheader('Herunterladen :arrow_heading_down:')
-    with col2:
-        export = utils.create_df_export_button(
-            df=df,
-            title=f"Absorptionsgrad Berechnung",
-            ts=None,
-        )
+        # DF anzeigen
+        col1, col2 = st.columns(2)
+        col1.subheader('Daten :books:')
+        df = pd.DataFrame({'Frequenz [Hz]': f_range, 'Absorptionsgrad [1]': alphas[0:len(f_range)]})
+        st.dataframe(df, height=210)
+        col2.subheader('Herunterladen :arrow_heading_down:')
+        with col2:
+            export = utils.create_df_export_button(
+                df=df,
+                title=f"Absorptionsgrad Berechnung",
+                ts=None,
+            )
+    elif plot_type == 'Octave Bands':
+        fig1 = utils.plotly_freq_bands(x=f_range_full,
+                                       y=alphas,
+                                       x_label='Frequenz in [Hz]',
+                                       y_label='Absorptionsgrad',
+                                       title="Absorptionsgrad Oktavbänder",
+                                       plot_type="oct")
+        st.plotly_chart(fig1)
+
+        # DF anzeigen
+        col1, col2 = st.columns(2)
+        col1.subheader('Daten :books:')
+        df = pd.DataFrame({'Frequenz [Hz]': f_range_full, 'Absorptionsgrad [1]': alphas})
+        st.dataframe(df, height=210)
+        col2.subheader('Herunterladen :arrow_heading_down:')
+        with col2:
+            export = utils.create_df_export_button(
+                df=df,
+                title=f"Absorptionsgrad Berechnung",
+                ts=None,
+            )
+    elif plot_type == '1/3 Octave Bands':
+        fig1 = utils.plotly_freq_bands(x=f_range_full,
+                                       y=alphas,
+                                       x_label='Frequenz in [Hz]',
+                                       y_label='Absorptionsgrad',
+                                       title="Absorptionsgrad Terzbänder",
+                                       plot_type="third")
+        st.plotly_chart(fig1)
+
+        # DF anzeigen
+        col1, col2 = st.columns(2)
+        col1.subheader('Daten :books:')
+        df = pd.DataFrame({'Frequenz [Hz]': f_range_full, 'Absorptionsgrad [1]': alphas})
+        st.dataframe(df, height=210)
+        col2.subheader('Herunterladen :arrow_heading_down:')
+        with col2:
+            export = utils.create_df_export_button(
+                df=df,
+                title=f"Absorptionsgrad Berechnung",
+                ts=None,
+            )
 except:
     pass
-
