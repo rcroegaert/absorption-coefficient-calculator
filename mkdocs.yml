@@ -12,6 +12,7 @@ plugins:
     - search
     - bibtex:
         bib_file: "references.bib"
+
 theme:
   name: material
   palette:
