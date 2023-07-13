@@ -1,10 +1,9 @@
 import numpy as np
 from scipy.special import jv
-import streamlit as st
 
 
 class AbsorberModelInterface:
-    """Base class interface for all Absorber Models
+    """Base class interface for all Absorber Models.
 
     Args:
         f (float): Frequency
@@ -25,9 +24,33 @@ class AbsorberModelInterface:
         self.omega = 2 * np.pi * self.f
         self.viscosity = viscosity
 
+    def get_k(self):
+        """Calculates the wave number. Different for each model, see source code for details.
+        
+        Returns:
+            k (float): Wave number
+        """
+        pass
+
+    def get_Z(self):
+        """Calculates the surface impedance. Different for each model, see source code for details.
+
+        Returns:
+            Z (float): Surface impedance
+        """
+        pass
+
+    def get_T(self):
+        """Calculates the transfer matrix. Different for each model, see source code for details.
+
+        Returns:
+            T (float): Transfer Matrix of the absorber
+        """
+        pass
+
 
 class Porous_Absorber_DB(AbsorberModelInterface):
-    """Delany & Bazley Empirical Model
+    """Delany & Bazley Empirical Model for a porous absorber material.
 
     Args:
         f (float): Frequency
@@ -36,14 +59,13 @@ class Porous_Absorber_DB(AbsorberModelInterface):
         sigma (float): Flow resistivity of material
         L (float): Thickness of the layer
         viscosity (float): Viscosity of air
-
         kx (float): Wave number in x direction
 
 
     Returns:
-        k (float): Wave number
-        Z (float): Surface impedance
-        T (float): Transfer Matrix of the absorber
+        k (float): Wave number when calling get_k()
+        Z (float): Surface impedance when calling get_Z()
+        T (float): Transfer Matrix of the absorber when calling get_T()
     """
 
     def __init__(self, f, air_density, air_speed, L1, viscosity, sigma, kx):
@@ -52,9 +74,6 @@ class Porous_Absorber_DB(AbsorberModelInterface):
         self.sigma = sigma
         self.kx = kx
         self.X = (self.air_density * self.f) / self.sigma
-
-    def calculate_aux_values(self):
-        pass
 
     def get_k(self):
         k = self.omega / self.air_speed * (1 + 0.0978 * self.X ** (-0.7) - 1j * 0.189 * self.X ** (-0.595))
@@ -75,7 +94,7 @@ class Porous_Absorber_DB(AbsorberModelInterface):
 
 
 class Porous_Absorber_JAC(AbsorberModelInterface):
-    """JAC
+    """Johnson-Champoux-Allard Model for a porous absorber material.
 
     Args:
         f (float): Frequency
@@ -155,7 +174,7 @@ class Porous_Absorber_JAC(AbsorberModelInterface):
 
 
 class PerforatedPlate_Absorber(AbsorberModelInterface):
-    """MAA´s Model
+    """Maa´s Model for a rigid micro-perforated plate absorber material.
 
     Args:
         f (float): Frequency
@@ -246,4 +265,55 @@ class Air_Absorber(AbsorberModelInterface):
         k_z = np.sqrt(k ** 2 - self.kx ** 2)
         T = np.array([[np.cos(k_z * self.L1), 1j * Z * (k / k_z) * np.sin(k_z * self.L1)],
                       [(1j / Z) * (k_z / k) * np.sin(k_z * self.L1), np.cos(k_z * self.L1)]])
+        return T
+
+class Plate_Absorber(AbsorberModelInterface):
+    """Infinite Elastic Vibrating Wall Model for a plate absorber material.
+
+        Args:
+            f (float): Frequency
+            air_density (float): Density of air
+            air speed (float): Speed of air
+            L (float): Thickness of the layer
+            viscosity (float): Viscosity of air
+
+            theta (float): Angle of incidence
+            density (float): Density of the plate
+            E (float): Young's modulus
+            nu (float): Poisson's ratio
+            eta (float): Loss factor
+
+
+        Returns:
+            fc (float): Critical frequency
+            Z (float): Surface impedance
+            T (float): Transfer Matrix of the absorber
+        """
+
+    def __init__(self, f, air_density, air_speed, L1, viscosity, theta, density, E, nu, eta):
+        super().__init__(f, air_density, air_speed, L1, viscosity)
+
+        self.omega = 2 * np.pi * self.f
+        self.theta = theta
+        self.density = density
+        self.E = E
+        self.nu = nu
+        self.eta = eta
+
+        self.m_dot = self.density * self.L1
+        self.D = self.E * self.L1 ** 3 / (12 * (1 - self.nu ** 2))
+
+    def get_fc(self):
+        fc = (self.air_speed ** 2) / (2 * np.pi) * np.sqrt(self.m_dot / self.D)
+        return fc
+
+    def get_Z(self):
+        fc = self.get_fc()
+        Z = 1j * self.m_dot * self.omega * (1 - ((self.f/fc)**2) * (1 + 1j*self.eta) * np.sin(self.theta)**4)
+        return Z
+
+    def get_T(self):
+        Z = self.get_Z()
+        T = np.array([[1, Z],
+                      [0, 1]])
         return T
