@@ -7,6 +7,8 @@ The goal of this tool is to enable anyone to quickly calculate the absorption co
 either for one material or multilayered materials. It was developed within the "Python & Akustik" course at the
 TU Berlin, imparted by Prof. Dr. Ennes Sarradj in the summer semester of 2023.
 
+Try it [here](https://absorption-coefficient-calculator-app.streamlit.app/)!
+
 The app is divided in four parts. The first part is the **Global Parameters**. Here you can choose the frequency range,
 and some other parameters involving the environmental conditions. 
 
