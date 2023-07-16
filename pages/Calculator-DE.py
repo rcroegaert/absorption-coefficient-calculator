@@ -5,7 +5,7 @@ import pandas as pd
 from src import utils, models, absorptioncoeff
 
 st.set_page_config(
-    page_title="Absorptionsgrad Rechner",
+    page_title="Absorptionsgrad Rechner DE",
     layout="wide"
 )
 # --- Initialising SessionState ---
@@ -194,11 +194,3 @@ try:
             )
 except:
     pass
-
-def main():
-    language = st.selectbox('Select Language', ['English', 'Deutsch'])
-
-    if language == 'English':
-        main_en()
-    else:
-        main_de()
