@@ -14,5 +14,5 @@ The second part is the **Material Parameters**. Here you
 can define the material depending on the model you want to calculate the absorption coefficient for. 
 You can add a maximum of 5 materials. The models are further explained in the [models](models.md) section.
 
-The third part is the **Results**. Here you can see the output of the calculations in a graph and as a table. Here you
+The third part are the **Results**. Here you can see the output of the calculations in a graph and as a table. Here you
 can also download the results as a .csv file.
