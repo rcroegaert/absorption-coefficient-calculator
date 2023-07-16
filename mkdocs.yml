@@ -1,4 +1,8 @@
-site_name: Absorption Coefficient Calculator
+site_name: Absorption Coefficient Calculator Docs
+site url: https://rcroegaert.github.io/absorption-coefficient-calculator-docs/
+repo_url: https://rcroegaert/absorption-coefficient-calculator/
+repo_name: absorption-coefficient-calculator
+
 
 nav:
     - Home: index.md
