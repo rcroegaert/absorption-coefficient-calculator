@@ -3,6 +3,7 @@ numpy
 pandas
 pendulum
 plotly
+plotly.graph_objects
 streamlit
 tabulate
 scipy
