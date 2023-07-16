@@ -1,0 +1,2814 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../absorptioncoeff/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
+    
+    
+      
+        <title>Models - Absorption Coefficient Calculator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="pink">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#about" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Absorption Coefficient Calculator" class="md-header__button md-logo" aria-label="Absorption Coefficient Calculator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Absorption Coefficient Calculator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Models
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      Models
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../absorptioncoeff/" class="md-tabs__link">
+      TMM Calculator
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../utils/" class="md-tabs__link">
+      Side functions
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Absorption Coefficient Calculator" class="md-nav__button md-logo" aria-label="Absorption Coefficient Calculator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Absorption Coefficient Calculator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Models
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about" class="md-nav__link">
+    About
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models" class="md-nav__link">
+    src.models
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models.AbsorberModelInterface" class="md-nav__link">
+    AbsorberModelInterface
+  </a>
+  
+    <nav class="md-nav" aria-label="AbsorberModelInterface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#src.models.AbsorberModelInterface.get_T" class="md-nav__link">
+    get_T()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#src.models.AbsorberModelInterface.get_Z" class="md-nav__link">
+    get_Z()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#src.models.AbsorberModelInterface.get_k" class="md-nav__link">
+    get_k()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models.Air_Absorber" class="md-nav__link">
+    Air_Absorber
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models.PerforatedPlate_Absorber" class="md-nav__link">
+    PerforatedPlate_Absorber
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models.Plate_Absorber" class="md-nav__link">
+    Plate_Absorber
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models.Porous_Absorber_DB" class="md-nav__link">
+    Porous_Absorber_DB
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models.Porous_Absorber_JAC" class="md-nav__link">
+    Porous_Absorber_JAC
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../absorptioncoeff/" class="md-nav__link">
+        TMM Calculator
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils/" class="md-nav__link">
+        Side functions
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about" class="md-nav__link">
+    About
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models" class="md-nav__link">
+    src.models
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models.AbsorberModelInterface" class="md-nav__link">
+    AbsorberModelInterface
+  </a>
+  
+    <nav class="md-nav" aria-label="AbsorberModelInterface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#src.models.AbsorberModelInterface.get_T" class="md-nav__link">
+    get_T()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#src.models.AbsorberModelInterface.get_Z" class="md-nav__link">
+    get_Z()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#src.models.AbsorberModelInterface.get_k" class="md-nav__link">
+    get_k()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models.Air_Absorber" class="md-nav__link">
+    Air_Absorber
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models.PerforatedPlate_Absorber" class="md-nav__link">
+    PerforatedPlate_Absorber
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models.Plate_Absorber" class="md-nav__link">
+    Plate_Absorber
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models.Porous_Absorber_DB" class="md-nav__link">
+    Porous_Absorber_DB
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.models.Porous_Absorber_JAC" class="md-nav__link">
+    Porous_Absorber_JAC
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Models</h1>
+
+<h2 id="about">About</h2>
+<p>The classes for each absorber model used in the calculator are defined here. There is a base class "AbsorberModel" which
+defines the basic structure of each model. Each model inherits from this base class and defines its own extra parameters.</p>
+<p>There are 4 models of absorbers currently implemented, all can be found in <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>:</p>
+<ul>
+<li>Porous Absorber: Johnson-Champoux-Allard Model.</li>
+<li>Porous Absorber: Delany-Bazley Model.</li>
+<li>Microperforated Panel: Maa´s Model.</li>
+<li>Air</li>
+<li>Plate: Infinite Elastic Wall Model.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Info</p>
+<p><strong>The Delany &amp; Bazley code is implemented but is not being used by the calculator.</strong></p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">Error</p>
+<p><strong>The values calculated for the Plate Model are not consistent with the goal of this tool.
+When using the plate model, the transmission loss is of importance, not the absorption.</strong></p>
+</div>
+<hr />
+
+
+<div class="doc doc-object doc-module">
+
+
+<a id="src.models"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="src.models.AbsorberModelInterface" class="doc doc-heading">
+          <code>AbsorberModelInterface</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Base class interface for all Absorber Models.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>f</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Frequency</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air_density</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Density of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air</code></td>
+          <td>
+                <code>speed (float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Speed of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>L</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Thickness of the layer</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>viscosity</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Viscosity of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>omega</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Angular frequency</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>src/models.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">AbsorberModelInterface</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class interface for all Absorber Models.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f (float): Frequency</span>
+<span class="sd">        air_density (float): Density of air</span>
+<span class="sd">        air speed (float): Speed of air</span>
+<span class="sd">        L (float): Thickness of the layer</span>
+<span class="sd">        viscosity (float): Viscosity of air</span>
+<span class="sd">        omega (float): Angular frequency</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">air_density</span> <span class="o">=</span> <span class="n">omega</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">air_density</span><span class="p">,</span> <span class="n">air_speed</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">viscosity</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">=</span> <span class="n">air_density</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">air_speed</span> <span class="o">=</span> <span class="n">air_speed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">L1</span> <span class="o">=</span> <span class="n">L1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viscosity</span> <span class="o">=</span> <span class="n">viscosity</span>
+
+    <span class="k">def</span> <span class="nf">get_k</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the wave number. Different for each model, see source code for details.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            k (float): Wave number</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">get_Z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the surface impedance. Different for each model, see source code for details.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Z (float): Surface impedance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">get_T</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the transfer matrix. Different for each model, see source code for details.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            T (float): Transfer Matrix of the absorber</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="src.models.AbsorberModelInterface.get_T" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_T</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Calculates the transfer matrix. Different for each model, see source code for details.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>T</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Transfer Matrix of the absorber</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>src/models.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_T</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the transfer matrix. Different for each model, see source code for details.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        T (float): Transfer Matrix of the absorber</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="src.models.AbsorberModelInterface.get_Z" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_Z</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Calculates the surface impedance. Different for each model, see source code for details.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>Z</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Surface impedance</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>src/models.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_Z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the surface impedance. Different for each model, see source code for details.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Z (float): Surface impedance</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="src.models.AbsorberModelInterface.get_k" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_k</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Calculates the wave number. Different for each model, see source code for details.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>k</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Wave number</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>src/models.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_k</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the wave number. Different for each model, see source code for details.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        k (float): Wave number</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="src.models.Air_Absorber" class="doc doc-heading">
+          <code>Air_Absorber</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="src.models.AbsorberModelInterface" href="#src.models.AbsorberModelInterface">AbsorberModelInterface</a></code></p>
+
+  
+      <p>Air Model</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>f</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Frequency</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air_density</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Density of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air</code></td>
+          <td>
+                <code>speed (float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Speed of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>L</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Thickness of the layer</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>viscosity</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Viscosity of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>kx</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Wave number in x direction</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>Z</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Surface impedance</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+<td><code>k</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Wave number</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+<td><code>T</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Transfer Matrix of the absorber</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>src/models.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Air_Absorber</span><span class="p">(</span><span class="n">AbsorberModelInterface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Air Model</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f (float): Frequency</span>
+<span class="sd">        air_density (float): Density of air</span>
+<span class="sd">        air speed (float): Speed of air</span>
+<span class="sd">        L (float): Thickness of the layer</span>
+<span class="sd">        viscosity (float): Viscosity of air</span>
+
+<span class="sd">        kx (float): Wave number in x direction</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Z (float): Surface impedance</span>
+<span class="sd">        k (float): Wave number</span>
+<span class="sd">        T (float): Transfer Matrix of the absorber</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">air_density</span><span class="p">,</span> <span class="n">air_speed</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">viscosity</span><span class="p">,</span> <span class="n">kx</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">air_density</span><span class="p">,</span> <span class="n">air_speed</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">viscosity</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">kx</span> <span class="o">=</span> <span class="n">kx</span>
+
+    <span class="k">def</span> <span class="nf">get_k</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_speed</span>
+        <span class="k">return</span> <span class="n">k</span>
+
+    <span class="k">def</span> <span class="nf">get_Z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_speed</span>
+        <span class="k">return</span> <span class="n">Z</span>
+
+    <span class="k">def</span> <span class="nf">get_T</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_k</span><span class="p">()</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_Z</span><span class="p">()</span>
+        <span class="n">k_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">k</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">kx</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">k_z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span><span class="p">),</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">Z</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="n">k_z</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">k_z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span><span class="p">)],</span>
+                      <span class="p">[(</span><span class="mi">1</span><span class="n">j</span> <span class="o">/</span> <span class="n">Z</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">k_z</span> <span class="o">/</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">k_z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">k_z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span><span class="p">)]])</span>
+        <span class="k">return</span> <span class="n">T</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="src.models.PerforatedPlate_Absorber" class="doc doc-heading">
+          <code>PerforatedPlate_Absorber</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="src.models.AbsorberModelInterface" href="#src.models.AbsorberModelInterface">AbsorberModelInterface</a></code></p>
+
+  
+      <p>Maa´s Model for a rigid micro-perforated plate absorber material.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>f</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Frequency</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air_density</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Density of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air</code></td>
+          <td>
+                <code>speed (float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Speed of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>L</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Thickness of the layer</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>viscosity</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Viscosity of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>d_hole</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Diameter of hole</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>a</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Distance between holes</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>phi</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Porosity</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>s</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Ratio of the holes' diameter to the boundary layer thickness</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>S</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Area of the edge effects</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>e</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>DONT KNOW THE NAME</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>F_e</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Fok function</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>Z</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Surface impedance</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+<td><code>k</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Wave number</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+<td><code>T</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Transfer Matrix of the absorber</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>src/models.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">PerforatedPlate_Absorber</span><span class="p">(</span><span class="n">AbsorberModelInterface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Maa´s Model for a rigid micro-perforated plate absorber material.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f (float): Frequency</span>
+<span class="sd">        air_density (float): Density of air</span>
+<span class="sd">        air speed (float): Speed of air</span>
+<span class="sd">        L (float): Thickness of the layer</span>
+<span class="sd">        viscosity (float): Viscosity of air</span>
+
+<span class="sd">        d_hole (float): Diameter of hole</span>
+<span class="sd">        a (float): Distance between holes</span>
+
+<span class="sd">        phi (float): Porosity</span>
+<span class="sd">        s (float): Ratio of the holes&#39; diameter to the boundary layer thickness</span>
+<span class="sd">        S (float): Area of the edge effects</span>
+<span class="sd">        e (float): DONT KNOW THE NAME</span>
+<span class="sd">        F_e (float): Fok function</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Z (float): Surface impedance</span>
+<span class="sd">        k (float): Wave number</span>
+<span class="sd">        T (float): Transfer Matrix of the absorber</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">air_density</span><span class="p">,</span> <span class="n">air_speed</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">viscosity</span><span class="p">,</span> <span class="n">d_hole</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">air_density</span><span class="p">,</span> <span class="n">air_speed</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">viscosity</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_hole</span> <span class="o">=</span> <span class="n">d_hole</span><span class="o">/</span><span class="mi">1000</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">/</span><span class="mi">1000</span>
+
+    <span class="k">def</span> <span class="nf">get_k</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_speed</span>
+        <span class="k">return</span> <span class="n">k</span>
+
+    <span class="k">def</span> <span class="nf">get_Z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d_hole</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="mf">1.1284</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phi</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_hole</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">viscosity</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">F_e</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">1.4092</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">+</span> <span class="mf">0.33818</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.06793</span> <span class="o">*</span>
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">**</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.02287</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.03015</span> <span class="o">*</span>
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">**</span> <span class="mi">7</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.01641</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">**</span> <span class="mi">8</span><span class="p">))</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">J_0</span> <span class="o">=</span> <span class="n">jv</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="p">))</span>
+        <span class="n">J_1</span> <span class="o">=</span> <span class="n">jv</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="p">))</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">viscosity</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span><span class="p">)</span> <span class="o">+</span>
+             <span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.85</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_hole</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">F_e</span> <span class="o">+</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">L1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">J_1</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="p">))</span> <span class="o">/</span> <span class="n">J_0</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">Z</span>
+
+    <span class="k">def</span> <span class="nf">get_T</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_Z</span><span class="p">()],</span>
+                      <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="n">T</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="src.models.Plate_Absorber" class="doc doc-heading">
+          <code>Plate_Absorber</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="src.models.AbsorberModelInterface" href="#src.models.AbsorberModelInterface">AbsorberModelInterface</a></code></p>
+
+  
+      <p>Infinite Elastic Vibrating Wall Model for a plate absorber material.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>f</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Frequency</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air_density</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Density of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air</code></td>
+          <td>
+                <code>speed (float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Speed of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>L</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Thickness of the layer</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>viscosity</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Viscosity of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>theta</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Angle of incidence</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>density</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Density of the plate</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>E</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Young's modulus</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>nu</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Poisson's ratio</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>eta</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Loss factor</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>fc</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Critical frequency</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+<td><code>Z</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Surface impedance</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+<td><code>T</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Transfer Matrix of the absorber</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>src/models.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Plate_Absorber</span><span class="p">(</span><span class="n">AbsorberModelInterface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Infinite Elastic Vibrating Wall Model for a plate absorber material.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            f (float): Frequency</span>
+<span class="sd">            air_density (float): Density of air</span>
+<span class="sd">            air speed (float): Speed of air</span>
+<span class="sd">            L (float): Thickness of the layer</span>
+<span class="sd">            viscosity (float): Viscosity of air</span>
+
+<span class="sd">            theta (float): Angle of incidence</span>
+<span class="sd">            density (float): Density of the plate</span>
+<span class="sd">            E (float): Young&#39;s modulus</span>
+<span class="sd">            nu (float): Poisson&#39;s ratio</span>
+<span class="sd">            eta (float): Loss factor</span>
+
+
+<span class="sd">        Returns:</span>
+<span class="sd">            fc (float): Critical frequency</span>
+<span class="sd">            Z (float): Surface impedance</span>
+<span class="sd">            T (float): Transfer Matrix of the absorber</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">air_density</span><span class="p">,</span> <span class="n">air_speed</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">viscosity</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">eta</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">air_density</span><span class="p">,</span> <span class="n">air_speed</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">viscosity</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="n">density</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">E</span> <span class="o">=</span> <span class="n">E</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nu</span> <span class="o">=</span> <span class="n">nu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">=</span> <span class="n">eta</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_dot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">E</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">/</span> <span class="p">(</span><span class="mi">12</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">nu</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">get_fc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">fc</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">air_speed</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_dot</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fc</span>
+
+    <span class="k">def</span> <span class="nf">get_Z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">fc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fc</span><span class="p">()</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_dot</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">/</span><span class="n">fc</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Z</span>
+
+    <span class="k">def</span> <span class="nf">get_T</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_Z</span><span class="p">()</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="n">Z</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="n">T</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="src.models.Porous_Absorber_DB" class="doc doc-heading">
+          <code>Porous_Absorber_DB</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="src.models.AbsorberModelInterface" href="#src.models.AbsorberModelInterface">AbsorberModelInterface</a></code></p>
+
+  
+      <p>Delany &amp; Bazley Empirical Model for a porous absorber material.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>f</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Frequency</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air_density</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Density of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air</code></td>
+          <td>
+                <code>speed (float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Speed of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>sigma</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Flow resistivity of material</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>L</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Thickness of the layer</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>viscosity</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Viscosity of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>kx</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Wave number in x direction</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>k</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Wave number when calling get_k()</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+<td><code>Z</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Surface impedance when calling get_Z()</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+<td><code>T</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Transfer Matrix of the absorber when calling get_T()</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>src/models.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Porous_Absorber_DB</span><span class="p">(</span><span class="n">AbsorberModelInterface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Delany &amp; Bazley Empirical Model for a porous absorber material.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f (float): Frequency</span>
+<span class="sd">        air_density (float): Density of air</span>
+<span class="sd">        air speed (float): Speed of air</span>
+<span class="sd">        sigma (float): Flow resistivity of material</span>
+<span class="sd">        L (float): Thickness of the layer</span>
+<span class="sd">        viscosity (float): Viscosity of air</span>
+<span class="sd">        kx (float): Wave number in x direction</span>
+
+
+<span class="sd">    Returns:</span>
+<span class="sd">        k (float): Wave number when calling get_k()</span>
+<span class="sd">        Z (float): Surface impedance when calling get_Z()</span>
+<span class="sd">        T (float): Transfer Matrix of the absorber when calling get_T()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">air_density</span><span class="p">,</span> <span class="n">air_speed</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">viscosity</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">kx</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">air_density</span><span class="p">,</span> <span class="n">air_speed</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">viscosity</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kx</span> <span class="o">=</span> <span class="n">kx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span>
+
+    <span class="k">def</span> <span class="nf">get_k</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_speed</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.0978</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="mf">0.189</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.595</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">k</span>
+
+    <span class="k">def</span> <span class="nf">get_Z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_speed</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.0571</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.754</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="mf">0.087</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.732</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">Z</span>
+
+    <span class="k">def</span> <span class="nf">get_T</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_k</span><span class="p">()</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_Z</span><span class="p">()</span>
+        <span class="n">k_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">k</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">kx</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">k_z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span><span class="p">),</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">Z</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="n">k_z</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">k_z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span><span class="p">)],</span>
+                      <span class="p">[(</span><span class="mi">1</span><span class="n">j</span> <span class="o">/</span> <span class="n">Z</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">k_z</span> <span class="o">/</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">k_z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">k_z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span><span class="p">)]])</span>
+        <span class="k">return</span> <span class="n">T</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="src.models.Porous_Absorber_JAC" class="doc doc-heading">
+          <code>Porous_Absorber_JAC</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="src.models.AbsorberModelInterface" href="#src.models.AbsorberModelInterface">AbsorberModelInterface</a></code></p>
+
+  
+      <p>Johnson-Champoux-Allard Model for a porous absorber material.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>f</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Frequency</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air_density</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Density of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air</code></td>
+          <td>
+                <code>speed (float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Speed of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>sigma</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Flow resistivity of material</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>L</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Thickness of the layer</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>viscosity</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Viscosity of air</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>air_pressure</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Air pressure</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>phi</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Porosity</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>alpha_inf</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Tortuosity</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>kx</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Wave number in x direction</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>gamma</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Specific heat ratio</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>kappa</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Thermal conductivity</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>cp</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Specific heat capacity</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>K0</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Bulk modulus</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>delta_v</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Viscous boundary layer thickness</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>delta_h</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Thermal boundary layer thickness</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>Pr</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Prandtl number</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>k</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Wave number</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+<td><code>Z</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Surface impedance</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+<td><code>T</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Transfer Matrix of the absorber</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>src/models.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Porous_Absorber_JAC</span><span class="p">(</span><span class="n">AbsorberModelInterface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Johnson-Champoux-Allard Model for a porous absorber material.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f (float): Frequency</span>
+<span class="sd">        air_density (float): Density of air</span>
+<span class="sd">        air speed (float): Speed of air</span>
+<span class="sd">        sigma (float): Flow resistivity of material</span>
+<span class="sd">        L (float): Thickness of the layer</span>
+<span class="sd">        viscosity (float): Viscosity of air</span>
+
+<span class="sd">        air_pressure (float): Air pressure</span>
+<span class="sd">        phi (float): Porosity</span>
+<span class="sd">        alpha_inf (float): Tortuosity</span>
+<span class="sd">        kx (float): Wave number in x direction</span>
+
+<span class="sd">        gamma (float): Specific heat ratio</span>
+<span class="sd">        kappa (float): Thermal conductivity</span>
+<span class="sd">        cp (float): Specific heat capacity</span>
+<span class="sd">        K0 (float): Bulk modulus</span>
+<span class="sd">        delta_v (float): Viscous boundary layer thickness</span>
+<span class="sd">        delta_h (float): Thermal boundary layer thickness</span>
+<span class="sd">        Pr (float): Prandtl number</span>
+
+
+<span class="sd">    Returns:</span>
+<span class="sd">        k (float): Wave number</span>
+<span class="sd">        Z (float): Surface impedance</span>
+<span class="sd">        T (float): Transfer Matrix of the absorber</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">air_density</span><span class="p">,</span> <span class="n">air_speed</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">viscosity</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">air_pressure</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">alpha_inf</span><span class="p">,</span> <span class="n">kx</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">air_density</span><span class="p">,</span> <span class="n">air_speed</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">viscosity</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">air_pressure</span> <span class="o">=</span> <span class="n">air_pressure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">=</span> <span class="n">phi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_inf</span> <span class="o">=</span> <span class="n">alpha_inf</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kx</span> <span class="o">=</span> <span class="n">kx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="mf">1.4</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">K0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_pressure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kappa</span> <span class="o">=</span> <span class="mf">0.0241</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cp</span> <span class="o">=</span> <span class="mf">1.01</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">viscosity</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">kappa</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cp</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Pr</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_v</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viscosity_L</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">viscosity</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha_inf</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thermal_L</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">viscosity_L</span>  <span class="c1"># simpler formulations</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">G1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha_inf</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">G2</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha_inf</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">viscosity</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> \
+                  <span class="o">/</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">viscosity_L</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">G1_dot</span> <span class="o">=</span> <span class="mi">8</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">viscosity</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pr</span> <span class="o">*</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">thermal_L</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">G2_dot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pr</span> <span class="o">*</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">thermal_L</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">/</span> <span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">viscosity</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">density_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">air_density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha_inf</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">G1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">G2</span><span class="p">))</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Kp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">K0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span>
+                                                <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">G1_dot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">G2_dot</span><span class="p">))</span> <span class="o">**</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">calculate_aux_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">get_k</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">density_p</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">Kp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">k</span>
+
+    <span class="k">def</span> <span class="nf">get_Z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">density_p</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Kp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Z</span>
+
+    <span class="k">def</span> <span class="nf">get_T</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_k</span><span class="p">()</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_Z</span><span class="p">()</span>
+        <span class="n">k_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">k</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">kx</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">k_z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span><span class="p">),</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">Z</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="n">k_z</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">k_z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span><span class="p">)],</span>
+                      <span class="p">[(</span><span class="mi">1</span><span class="n">j</span> <span class="o">/</span> <span class="n">Z</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">k_z</span> <span class="o">/</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">k_z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">k_z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">L1</span><span class="p">)]])</span>
+        <span class="k">return</span> <span class="n">T</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div><div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Noé Jiménez. <em>Acoustic waves in periodic structures, metamaterials, and porous media: From fundamentals to industrial applications</em>. Springer, 2022.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "content.code.copy"], "search": "../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+    
+  </body>
+</html>
