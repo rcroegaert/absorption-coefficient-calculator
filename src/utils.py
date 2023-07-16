@@ -72,7 +72,7 @@ def plotly_go_line(x, y, x_label, y_label, title):
     """
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=x, y=y, mode='lines'))
-    fig.update_xaxes(showgrid=True, type="log")
+    fig.update_xaxes(showgrid=True)
     fig.update_layout(title=title,
                       xaxis_title=x_label,
                       yaxis_title=y_label,
