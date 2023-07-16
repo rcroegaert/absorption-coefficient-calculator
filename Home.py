@@ -28,7 +28,7 @@ with st.expander('Werte ein/ausblenden...'):
     f_min, f_max = col1.slider('Anfangs- und Endfrequenz [Hz]', 0, 20000, (0, 10000), step=10)
     f_range = np.arange(f_min, f_max, 1)
     f_range_full = np.arange(1, 20000, 1)
-    plot_type = col2.selectbox('Plot Type', ('Graph', 'Oktavbänder', '1/3 Oktavbänder'))
+    plot_type = col2.selectbox('Darstellung', ('Graph', 'Oktavbänder', 'Terzbänder'))
 
     col1, col2, col3 = st.columns(3)
     col1.markdown('##### Lufttemperatur')
@@ -171,7 +171,7 @@ try:
                 title=f"Absorptionsgrad Berechnung",
                 ts=None,
             )
-    elif plot_type == '1/3 Oktavbänder':
+    elif plot_type == 'Terzbänder':
         fig1 = utils.plotly_freq_bands(x=f_range_full,
                                        y=alphas,
                                        x_label='Frequenz in [Hz]',
