@@ -88,6 +88,7 @@ st.markdown('----')
 air_density = air_pressure / (287.058 * (air_temp + 273.15))
 air_speed = 331.3 * np.sqrt(1 + (air_temp / 273.15))
 viscosity = (1.458 * 10 ** (-6) * (air_temp + 273.15) ** (3 / 2)) / (air_temp + 273.15 + 110.4)
+st.write(air_density, air_speed, viscosity)
 Z0 = air_speed * air_density
 alphas = np.array([])
 
