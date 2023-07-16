@@ -3,11 +3,11 @@ numpy
 pandas
 pendulum
 plotly
-streamlit
 tabulate
 scipy
 mkdocs
 mkdocstrings-python
+mkdocs-material
 mkdocs-material-extensions
 mkdocs-bibtex
 mdx-include
