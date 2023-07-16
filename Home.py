@@ -85,6 +85,7 @@ with st.expander('Werte ein/ausblenden...'):
 st.markdown('----')
 
 ################## Variable definition ##################
+theta = theta * np.pi / 180
 air_density = air_pressure / (287.058 * (air_temp + 273.15))
 air_speed = 331.3 * np.sqrt(1 + (air_temp / 273.15))
 viscosity = (1.458 * 10 ** (-6) * (air_temp + 273.15) ** (3 / 2)) / (air_temp + 273.15 + 110.4)
