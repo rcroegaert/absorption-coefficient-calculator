@@ -5,7 +5,7 @@ import pendulum
 import streamlit as st
 
 
-@st.cache_data(show_spinner=False)
+# @st.cache_data(show_spinner=False)
 def _convert_df(df: pd.DataFrame):
     """Converts a dataframe to a CSV file.
 
