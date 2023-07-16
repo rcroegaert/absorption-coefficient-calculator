@@ -91,7 +91,7 @@ def plotly_freq_bands(x, y, x_label, y_label, title, plot_type='oct'):
         x_label (str): Label for x axis
         y_label (str): Label for y axis
         title (str): Title of the plot
-        plot_type (str, optional): Type of plot to create. Defaults to 'oct'.
+        plot_type (str, optional): Type of plot to create. Options are 'oct' and 'third'.
 
     Returns:
         plotly.graph_objects.Figure: Plotly bar plot.

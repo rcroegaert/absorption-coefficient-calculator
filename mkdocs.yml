@@ -7,8 +7,8 @@ repo_name: absorption-coefficient-calculator
 nav:
     - Home: index.md
     - Models: models.md
-    - TMM Calculator: absorptioncoeff.md
-    - Side functions: utils.md
+    - TMM: absorptioncoeff.md
+    - Utility functions: utils.md
 
 
 plugins:
