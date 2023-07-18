@@ -141,7 +141,7 @@ try:
         # DF anzeigen
         col1, col2 = st.columns(2)
         col1.subheader('Data :books:')
-        df = pd.DataFrame({'Frequency [Hz]': f_range, 'Absorption coefficient [1]': alphas[0:len(f_range)]})
+        df = pd.DataFrame({'Frequency [Hz]': f_range, 'Absorption coefficient [1]': alphas[f_range]})
         st.dataframe(df, height=210)
         col2.subheader('Download :arrow_heading_down:')
         with col2:
