@@ -132,7 +132,7 @@ try:
     st.header('Plot :bar_chart:')
     if plot_type == 'Graph':
         fig1 = utils.plotly_go_line(x=f_range,
-                                    y=alphas,
+                                    y=alphas[f_range],
                                     x_label='Frequency in [Hz]',
                                     y_label='Absorption coefficient',
                                     title="Absorption coefficient plot")
